@@ -1,0 +1,8 @@
+package SniperRelease
+
+use SniperPolicy    v*
+use RootInterface   v*
+use SniperKernel    v*
+use RootWriter      v*
+
+use DummyAlg        v*   Examples

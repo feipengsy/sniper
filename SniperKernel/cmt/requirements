@@ -1,0 +1,13 @@
+package SniperKernel
+
+use SniperPolicy   v*
+
+macro_append SniperKernel_shlibflags " -lboost_regex "
+macro_append SniperKernel_shlibflags " -lboost_filesystem "
+
+apply_pattern install_more_includes more="SniperKernel"
+
+library SniperKernel *.cc Parsers/*.cc
+apply_pattern linker_library library=SniperKernel
+
+application  sniper  ../app/*.cc

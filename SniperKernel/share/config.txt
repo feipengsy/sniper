@@ -1,0 +1,7 @@
+//the main cycler
+Sniper.Cycler = "NormCycler";
+
+Sniper.InputSvc = "NONE";
+
+Sniper.EvtMax   = 100;
+Sniper.LogLevel = 3;

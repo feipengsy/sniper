@@ -1,0 +1,9 @@
+package RootWriter
+
+use SniperKernel   v*
+use RootInterface  v*
+
+apply_pattern install_more_includes more="RootWriter"
+
+library RootWriter *.cc
+apply_pattern linker_library library=RootWriter

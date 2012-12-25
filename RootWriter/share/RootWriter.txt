@@ -1,0 +1,4 @@
+Sniper.Dlls += { "RootWriter" };
+SvcMgr.Contents += { "RootWriter" };
+
+//RootWriter.Output = { "TEST" : "test.root" };
