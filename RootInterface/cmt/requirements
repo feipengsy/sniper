@@ -1,6 +1,6 @@
 package RootInterface
 
-macro ROOT_home "/afs/ihep.ac.cn/soft/dayabay/NuWa-64/opt/external/ROOT/5.26.00e_python2.7/x86_64-slc5-gcc41-opt/root"
+macro ROOT_home "${ROOTSYS}"
 macro RootInterface_linkopts "`root-config --libs` "
 
 include_path none
