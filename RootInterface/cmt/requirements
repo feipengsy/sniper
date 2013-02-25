@@ -1,12 +1,12 @@
 package RootInterface
 
 macro ROOT_home "${ROOTSYS}"
+#set ROOTSYS $(ROOT_home)
+
 macro RootInterface_linkopts "`root-config --libs` "
 
 include_path none
 include_dirs $(ROOT_home)/include
-
-set ROOTSYS $(ROOT_home)
 
 path_remove  PATH "/root/"
 path_prepend PATH "$(ROOT_home)/bin"
