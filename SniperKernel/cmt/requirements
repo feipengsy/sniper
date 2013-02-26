@@ -11,3 +11,4 @@ library SniperKernel *.cc Parsers/*.cc
 apply_pattern linker_library library=SniperKernel
 
 application  sniper  ../app/*.cc
+macro sniper_dependencies  SniperKernel
