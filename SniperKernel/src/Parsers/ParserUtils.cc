@@ -82,7 +82,12 @@ bool Gaudi::Parsers::Utils::searchFile
 ( const std::string&              fileInput  , 
   std::string&                    fileOutput )
 {
+// For compatible
+#if defined(BOOST_FILESYSTEM_VERSION)
+    fs::path givenPath(removeEnvironment(fileInput));
+#else
     fs::path givenPath(removeEnvironment(fileInput),fs::native);
+#endif
     if(fs::exists(fileOutput = givenPath.string())) {
 	return true;
     }

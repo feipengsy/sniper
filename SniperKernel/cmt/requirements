@@ -3,6 +3,7 @@ package SniperKernel
 use SniperPolicy   v*
 
 macro_append SniperKernel_shlibflags " -lboost_regex "
+macro_append SniperKernel_shlibflags " -lboost_system "
 macro_append SniperKernel_shlibflags " -lboost_filesystem "
 
 apply_pattern install_more_includes more="SniperKernel"
