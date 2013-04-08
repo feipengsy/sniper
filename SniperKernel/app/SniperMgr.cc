@@ -113,7 +113,7 @@ void SniperMgr::run()
 void SniperMgr::loadDll(const std::string& dll)
 {
     std::string dllname = std::string("lib") + dll + ".so";
-    void *dl_handler = dlopen(dllname.c_str(), RTLD_LAZY);
+    void *dl_handler = dlopen(dllname.c_str(), RTLD_LAZY|RTLD_GLOBAL);
     if ( !dl_handler ) {
 	LogFatal << dlerror() << std::endl;
 	std::string msg = std::string("Can't load DLL ") + dllname;
