@@ -4,7 +4,7 @@
 
 using namespace boost::python;
 
-BOOST_PYTHON_MODULE(sniper)
+BOOST_PYTHON_MODULE(libSniperMgr)
 {
    class_<SniperMgr>("SniperMgr", init<std::string>())
        .def("initialize", &SniperMgr::initialize)
