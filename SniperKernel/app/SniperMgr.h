@@ -13,7 +13,7 @@ class SniperMgr
 {
     public :
 
-	SniperMgr(char* optionfile);
+	SniperMgr(std::string optionfile);
 	virtual ~SniperMgr();
 
 	bool initialize();

@@ -5,6 +5,7 @@ use SniperPolicy   v*
 macro_append SniperKernel_shlibflags " -lboost_regex "
 macro_append SniperKernel_shlibflags " -lboost_system "
 macro_append SniperKernel_shlibflags " -lboost_filesystem "
+#macro_append SniperKernel_shlibflags " -lboost_python "
 
 apply_pattern install_more_includes more="SniperKernel"
 
@@ -13,3 +14,10 @@ apply_pattern linker_library library=SniperKernel
 
 application  sniper  ../app/*.cc
 macro sniper_dependencies  SniperKernel
+
+library SniperMgr ../binding/SniperMgrBinding.cc ../app/SniperMgr.cc
+macro SniperMgr_dependencies SniperKernel 
+macro_append SniperMgr_cppflags " `pkg-config --cflags python` -I ../app/ "
+macro_append SniperMgr_shlibflags " `pkg-config --libs python` "
+macro_append SniperMgr_shlibflags " -lboost_python "
+macro_append SniperMgr_shlibflags " -lSniperKernel "

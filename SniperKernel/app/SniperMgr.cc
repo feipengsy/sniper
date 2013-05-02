@@ -7,7 +7,7 @@
 #include "SniperKernel/ICycler.h"
 #include <dlfcn.h>
 
-SniperMgr::SniperMgr(char* optionfile)
+SniperMgr::SniperMgr(std::string optionfile)
     : m_nEvt(0),
       m_evtMax(-1),
       m_name("Sniper")
@@ -17,7 +17,7 @@ SniperMgr::SniperMgr(char* optionfile)
 	      << "***********************"
 	      << std::endl;
     LogInfo << optionfile << std::endl;
-    m_parser = OptionParser::instance(optionfile);
+    m_parser = OptionParser::instance(const_cast<char*>(optionfile.c_str()));
 
     /// general variables
     OptionParser::setOption("GlobalVar", "NumADs",   GlobalVar::NumADs);
@@ -120,3 +120,4 @@ void SniperMgr::loadDll(const std::string& dll)
 	throw SniperException(msg);
     }
 }
+
