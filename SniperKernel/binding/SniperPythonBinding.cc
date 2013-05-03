@@ -42,6 +42,7 @@ BOOST_PYTHON_MODULE(libSniperPython)
         .def("instance", &AlgMgr::instance,
                 return_value_policy<reference_existing_object>())
         .staticmethod("instance")
+        .def("execute", &AlgMgr::execute)
 
     ;
 
