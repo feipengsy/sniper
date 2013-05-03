@@ -5,6 +5,25 @@ using namespace boost::python;
 
 #include "SniperKernel/OptionParser.h"
 
+#include "SniperKernel/AlgBase.h"
+
+// Alg Base Wrapper
+struct AlgBaseWrap : AlgBase, wrapper<AlgBase>
+{
+    AlgBaseWrap(const std::string& name)
+        : AlgBase(name) {
+    }
+    bool initialize() {
+        return this->get_override("initialize")();
+    }
+    bool execute() {
+        return this->get_override("execute")();
+    }
+    bool finalize() {
+        return this->get_override("finalize")();
+    }
+};
+
 BOOST_PYTHON_MODULE(libSniperPython)
 {
     class_<OptionParser, boost::noncopyable>("OptionParser", no_init)
@@ -15,5 +34,11 @@ BOOST_PYTHON_MODULE(libSniperPython)
         .staticmethod("addOption")
         .def("setOption", &OptionParser::setOption<int>)
         .staticmethod("setOption")
+    ;
+
+    class_<AlgBaseWrap, boost::noncopyable>("AlgBase", init<std::string>())
+        .def("initialize", pure_virtual(&AlgBase::initialize))
+        .def("execute", pure_virtual(&AlgBase::execute))
+        .def("finalize", pure_virtual(&AlgBase::finalize))
     ;
 }
