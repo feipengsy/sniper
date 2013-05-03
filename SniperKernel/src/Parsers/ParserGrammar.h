@@ -12,7 +12,18 @@
 // ============================================================================
 // Boost
 // ============================================================================
+#include <boost/version.hpp>
+#if BOOST_VERSION >= 103800
+// FIXME: Move to the new boost::spirit::classic namespace
+#if !defined(BOOST_SPIRIT_USE_OLD_NAMESPACE)
+#define BOOST_SPIRIT_USE_OLD_NAMESPACE
+#endif
+#include <boost/spirit/include/classic.hpp>
+#include <boost/spirit/include/phoenix1.hpp>
+#else
 #include <boost/spirit.hpp>
+#include <boost/spirit/phoenix.hpp>
+#endif
 #include <boost/bind.hpp>
 #include <boost/tuple/tuple.hpp>
 // ============================================================================
