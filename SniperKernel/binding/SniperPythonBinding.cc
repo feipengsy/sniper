@@ -5,6 +5,7 @@ using namespace boost::python;
 
 #include "SniperKernel/OptionParser.h"
 
+#include "SniperKernel/AlgMgr.h"
 #include "SniperKernel/AlgBase.h"
 
 // Alg Base Wrapper
@@ -12,6 +13,7 @@ struct AlgBaseWrap : AlgBase, wrapper<AlgBase>
 {
     AlgBaseWrap(const std::string& name)
         : AlgBase(name) {
+        AlgMgr::AddAlg(this);
     }
     bool initialize() {
         return this->get_override("initialize")();
