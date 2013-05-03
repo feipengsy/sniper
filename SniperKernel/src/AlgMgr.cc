@@ -30,3 +30,8 @@ bool AlgMgr::execute()
     return true;
 }
 
+bool
+AlgMgr::AddAlg(AlgBase* alg) {
+    m_elements.push_back(alg);
+    name2obj[alg->name()] = alg;
+}

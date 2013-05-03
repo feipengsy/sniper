@@ -12,6 +12,7 @@ class AlgMgr : public ElementMgr<AlgBase>
 
 	bool execute();
 
+        static bool AddAlg(AlgBase*);
 
     private :
 
