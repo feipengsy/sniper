@@ -38,6 +38,13 @@ BOOST_PYTHON_MODULE(libSniperPython)
         .staticmethod("setOption")
     ;
 
+    class_<AlgMgr, boost::noncopyable>("AlgMgr", no_init)
+        .def("instance", &AlgMgr::instance,
+                return_value_policy<reference_existing_object>())
+        .staticmethod("instance")
+
+    ;
+
     class_<AlgBaseWrap, boost::noncopyable>("AlgBase", init<std::string>())
         .def("initialize", pure_virtual(&AlgBase::initialize))
         .def("execute", pure_virtual(&AlgBase::execute))
