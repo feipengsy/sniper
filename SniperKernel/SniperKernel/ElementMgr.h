@@ -3,6 +3,7 @@
 
 #include "SniperKernel/OptionParser.h"
 #include "SniperKernel/SniperException.h"
+#include "SniperKernel/BaseType.h"
 #include <map>
 #include <list>
 #include <vector>
@@ -90,7 +91,7 @@ template<typename Element>
 ElementMgr<Element>::~ElementMgr()
 {
     for(typename std::list<Element*>::iterator i=m_elements.begin(); i!=m_elements.end(); ++i) {
-        if(*i)
+        if((*i)->get_class_type()==Sniper_CPP)
             delete (*i);
     }
 }

@@ -3,6 +3,7 @@
 
 #include "SniperKernel/OptionParser.h"
 #include "SniperKernel/SniperLog.h"
+#include "SniperKernel/BaseType.h"
 #include <string>
 
 class ToolBase
@@ -16,10 +17,15 @@ class ToolBase
 
 	template<typename Type>
 	bool setOption(const std::string& option, Type& var);
+    virtual const enum BaseType get_class_type() const {
+        return _class_type;
+    }
+
 
     protected :
 
 	std::string m_name;
+    static const enum BaseType _class_type;
 
     private :
 	ToolBase();  //not supported

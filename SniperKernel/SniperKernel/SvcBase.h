@@ -3,6 +3,7 @@
 
 #include "SniperKernel/OptionParser.h"
 #include "SniperKernel/SniperLog.h"
+#include "SniperKernel/BaseType.h"
 #include <string>
 
 class SvcBase
@@ -19,10 +20,14 @@ class SvcBase
 
 	template<typename Type>
 	bool setOption(const std::string& option, Type& var);
+    virtual BaseType get_class_type() const {
+        return _class_type;
+    }
 
     protected :
 
 	std::string m_name;
+    static const BaseType _class_type;
 
     private :
 	SvcBase();  //not supported

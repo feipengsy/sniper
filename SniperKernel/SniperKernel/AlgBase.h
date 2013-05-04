@@ -4,6 +4,7 @@
 #include "SniperKernel/OptionParser.h"
 #include "SniperKernel/SvcBase.h"
 #include "SniperKernel/SniperLog.h"
+#include "SniperKernel/BaseType.h"
 #include <string>
 
 class AlgBase
@@ -24,10 +25,15 @@ class AlgBase
     template<typename Type>
     bool setOption(const std::string& option, Type& var);
 
+    virtual BaseType get_class_type() const {
+        return _class_type;
+    }
 
   protected :
 
     std::string m_name;
+
+    static const BaseType _class_type;
 
   private :
     //following interfaces are not supported

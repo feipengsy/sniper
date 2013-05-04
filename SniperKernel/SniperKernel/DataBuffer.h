@@ -4,6 +4,8 @@
 #include <deque>
 #include <algorithm>
 
+#include "SniperKernel/BaseType.h"
+
 template<typename Data>
 class DataBuffer
 {
@@ -31,11 +33,15 @@ class DataBuffer
 	inline int      backwardSize();
 
 	void            clear();
+    virtual BaseType get_class_type() const {
+        return _class_type;
+    }
 
     protected :
 
 	unsigned int       m_iCur;
 	std::deque<Data*>  m_dBuf;
+    static const BaseType _class_type;
 
 
     private :
@@ -43,6 +49,9 @@ class DataBuffer
 	DataBuffer(const DataBuffer&);
 	DataBuffer& operator=(const DataBuffer&);
 };
+
+template<typename Data>
+const enum BaseType DataBuffer<Data>::_class_type = Sniper_CPP;
 
 template<typename Data>
 DataBuffer<Data>::DataBuffer()

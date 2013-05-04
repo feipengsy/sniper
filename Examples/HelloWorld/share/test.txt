@@ -8,5 +8,5 @@ AlgMgr.Contents += { "HelloAlg/Hello1", "HelloAlg/Hello2" };
 Hello1.MyString = "Hello";
 Hello2.MyString = "World";
 
-Sniper.EvtMax   = 1000;
+Sniper.EvtMax   = 10;
 Sniper.LogLevel = 3;  //Info
