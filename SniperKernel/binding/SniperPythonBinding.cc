@@ -24,11 +24,14 @@ struct AlgBaseWrap : AlgBase, wrapper<AlgBase>
     bool finalize() {
         return this->get_override("finalize")();
     }
+     BaseType get_class_type() const {
+        return _class_type;
+    }
 protected:
-    static const enum BaseType _class_type;
+    static const BaseType _class_type;
 };
 
-const enum BaseType AlgBaseWrap::_class_type = Sniper_PYTHON;
+const BaseType AlgBaseWrap::_class_type = Sniper_PYTHON;
 
 BOOST_PYTHON_MODULE(libSniperPython)
 {
