@@ -50,5 +50,7 @@ BOOST_PYTHON_MODULE(libSniperPython)
         .def("initialize", pure_virtual(&AlgBase::initialize))
         .def("execute", pure_virtual(&AlgBase::execute))
         .def("finalize", pure_virtual(&AlgBase::finalize))
+        .def("name", &AlgBase::name, 
+                return_value_policy<copy_const_reference>())
     ;
 }
