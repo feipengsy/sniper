@@ -90,7 +90,8 @@ template<typename Element>
 ElementMgr<Element>::~ElementMgr()
 {
     for(typename std::list<Element*>::iterator i=m_elements.begin(); i!=m_elements.end(); ++i) {
-	delete (*i);
+        if(*i)
+            delete (*i);
     }
 }
 
