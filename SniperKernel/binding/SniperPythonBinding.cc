@@ -44,6 +44,7 @@ BOOST_PYTHON_MODULE(libSniperPython)
         .staticmethod("instance")
         .def("initialize", &AlgMgr::initialize)
         .def("execute", &AlgMgr::execute)
+        .def("finalize", &AlgMgr::finalize)
 
     ;
 
