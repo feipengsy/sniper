@@ -13,7 +13,7 @@ class DataBuffer
 
 	typedef typename std::deque<Data*>::iterator Iterator;
 
-	DataBuffer();
+	DataBuffer(BaseType bt=Sniper_CPP);
 	virtual ~DataBuffer();
 
 	inline Iterator begin();
@@ -33,15 +33,15 @@ class DataBuffer
 	inline int      backwardSize();
 
 	void            clear();
-    virtual BaseType get_class_type() const {
-        return _class_type;
+    const BaseType get_class_type() {
+        return m_class_type;
     }
 
     protected :
 
 	unsigned int       m_iCur;
 	std::deque<Data*>  m_dBuf;
-    static const BaseType _class_type;
+    const BaseType m_class_type;
 
 
     private :
@@ -51,11 +51,8 @@ class DataBuffer
 };
 
 template<typename Data>
-const enum BaseType DataBuffer<Data>::_class_type = Sniper_CPP;
-
-template<typename Data>
-DataBuffer<Data>::DataBuffer()
-    : m_iCur(0xFFFFFFFF)
+DataBuffer<Data>::DataBuffer(BaseType bt)
+    : m_iCur(0xFFFFFFFF), m_class_type(bt)
 {
 }
 
