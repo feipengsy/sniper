@@ -10,7 +10,8 @@ class SvcBase
 {
     public :
 
-	SvcBase(const std::string& name) : m_name(name) {}
+	SvcBase(const std::string& name, BaseType bt=Sniper_CPP) 
+            : m_name(name), m_class_type(bt) {}
 	virtual ~SvcBase() {}
 
 	const std::string& name() { return m_name; }
@@ -20,14 +21,14 @@ class SvcBase
 
 	template<typename Type>
 	bool setOption(const std::string& option, Type& var);
-    virtual BaseType get_class_type() const {
-        return _class_type;
+    const BaseType get_class_type() {
+        return m_class_type;
     }
 
     protected :
 
 	std::string m_name;
-    static const BaseType _class_type;
+    BaseType m_class_type;
 
     private :
 	SvcBase();  //not supported
