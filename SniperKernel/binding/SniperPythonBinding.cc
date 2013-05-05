@@ -12,7 +12,7 @@ using namespace boost::python;
 struct AlgBaseWrap : AlgBase, wrapper<AlgBase>
 {
     AlgBaseWrap(const std::string& name)
-        : AlgBase(name) {
+        : AlgBase(name, Sniper_PYTHON) {
         AlgMgr::AddAlg(this);
     }
     bool initialize() {
@@ -24,17 +24,15 @@ struct AlgBaseWrap : AlgBase, wrapper<AlgBase>
     bool finalize() {
         return this->get_override("finalize")();
     }
-     BaseType get_class_type() const {
-        return _class_type;
-    }
-protected:
-    static const BaseType _class_type;
 };
-
-const BaseType AlgBaseWrap::_class_type = Sniper_PYTHON;
 
 BOOST_PYTHON_MODULE(libSniperPython)
 {
+
+    enum_<BaseType>("BaseType")
+        .value("Sniper_CPP", Sniper_CPP)
+        .value("Sniper_PYTHON", Sniper_PYTHON)
+    ;
     class_<OptionParser, boost::noncopyable>("OptionParser", no_init)
         .def("OP", &OptionParser::instance, 
                 return_value_policy<reference_existing_object>())
@@ -65,5 +63,6 @@ BOOST_PYTHON_MODULE(libSniperPython)
         .def("finalize", pure_virtual(&AlgBase::finalize))
         .def("name", &AlgBase::name, 
                 return_value_policy<copy_const_reference>())
+        .def("get_class_type", &AlgBase::get_class_type)
     ;
 }
