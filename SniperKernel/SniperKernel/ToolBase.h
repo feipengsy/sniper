@@ -10,22 +10,23 @@ class ToolBase
 {
     public :
 
-	ToolBase(const std::string& name) : m_name(name) {}
+	ToolBase(const std::string& name, BaseType bt=Sniper_CPP) 
+            : m_name(name), m_class_type(bt) {}
 	virtual ~ToolBase() {}
 
 	const std::string& name() { return m_name; }
 
 	template<typename Type>
 	bool setOption(const std::string& option, Type& var);
-    virtual const enum BaseType get_class_type() const {
-        return _class_type;
-    }
 
+    const BaseType get_class_type()  {
+        return m_class_type;
+    }
 
     protected :
 
 	std::string m_name;
-    static const enum BaseType _class_type;
+    enum BaseType m_class_type;
 
     private :
 	ToolBase();  //not supported
