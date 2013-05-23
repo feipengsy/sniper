@@ -10,6 +10,9 @@ if __name__ == "__main__":
     op = libSniperPython.OptionParser
     op.OP("none.txt")
 
+    # TODO:
+    # We can use repr to convert python object to parser.
+
     op.addOption("Sniper", "LogLevel", "3")
     op.addOption("Sniper", "Cycler", "'NormCycler'")
     op.addOption("Sniper", "InputSvc", "'NONE'")
