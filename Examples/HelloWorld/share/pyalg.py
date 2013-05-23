@@ -28,6 +28,8 @@ if __name__ == "__main__":
     op.addOption("Hello1", "MyString", "GOD")
     op.addOption("Hello1", "MyVectorInt", "[1,2,3]")
     op.addOption("Hello2", "MyVectorInt", "[2,3]")
+    op.addOption("Hello1", "MyStrInt", '{"str":1, "str2":2}')
+    op.addOption("Hello2", "MyStrInt", '{"str":2, "str3":3}')
     sm = libSniperMgr.SniperMgr("")
     
     mgr = libSniperPython.AlgMgr.instance()

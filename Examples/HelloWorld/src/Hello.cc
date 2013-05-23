@@ -12,6 +12,7 @@ HelloAlg::HelloAlg(const std::string& name)
     //OptionParser::instance()->addOption(name, "MyString", "LINTAO");
     setOption("MyString", m_string);
     setOption("MyVectorInt", m_vector_int);
+    setOption("MyStrInt", m_str_int);
                             
 }
 
@@ -37,6 +38,14 @@ HelloAlg::initialize()
         LogInfo << (*i) << std::endl;
     }
     LogInfo << std::endl;
+    LogInfo << name()
+            << " MyStrInt("<< m_str_int.size() << "): " << std::endl; 
+    for (std::map<std::string, int>::iterator i=m_str_int.begin();
+            i!=m_str_int.end(); ++i) {
+        LogInfo << i->first << ":"
+                << i->second
+                << std::endl;
+    }
     return true;
 }
 
