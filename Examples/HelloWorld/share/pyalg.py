@@ -26,7 +26,7 @@ if __name__ == "__main__":
     op = libSniperPython.OptionParser
     op.OP("test.txt")
     op.addOption("Hello1", "MyString", "GOD")
-    sm = libSniperMgr.SniperMgr("test.txt")
+    sm = libSniperMgr.SniperMgr("")
     
     mgr = libSniperPython.AlgMgr.instance()
 
