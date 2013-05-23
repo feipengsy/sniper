@@ -9,6 +9,7 @@ HelloAlg::HelloAlg(const std::string& name)
 {
     m_count = 0;
 
+    OptionParser::instance()->addOption(name, "MyString", "LINTAO");
     setOption("MyString", m_string);
                             
 }

@@ -19,6 +19,7 @@ bool OptionParser::addOption(const std::string& client, const std::string& name,
     std::string stringResult;
     std::vector<std::string> vectorResult;
     bool ok = Gaudi::Parsers::Utils::parseValue(value, stringResult, vectorResult);
+    std::cout << "ADD OPTION: " << ok << std::endl;
     if ( ok ) {
 	bool isVector = (vectorResult.size()>0) || (stringResult=="{}");
 	if ( isVector ) {
@@ -31,6 +32,9 @@ bool OptionParser::addOption(const std::string& client, const std::string& name,
 	    _instance->m_entries->addProperty(client, property);
 	}
 	return true;
+    } else {
+        Gaudi::Parsers::PropertyEntry property(name, value);
+        _instance->m_entries->addProperty(client, property);
     }
     return false;
 }
