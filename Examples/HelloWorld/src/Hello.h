@@ -2,6 +2,7 @@
 #define Hello_h
 
 #include <string>
+#include <vector>
 
 #include "SniperKernel/AlgBase.h"
 
@@ -20,6 +21,7 @@ class HelloAlg: public AlgBase
         int m_count;
 
         std::string m_string;
+        std::vector<int> m_vector_int;
 };
 
 #endif

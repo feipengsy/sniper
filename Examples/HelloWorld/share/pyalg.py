@@ -26,6 +26,8 @@ if __name__ == "__main__":
     op = libSniperPython.OptionParser
     op.OP("test.txt")
     op.addOption("Hello1", "MyString", "GOD")
+    op.addOption("Hello1", "MyVectorInt", "[1,2,3]")
+    op.addOption("Hello2", "MyVectorInt", "[2,3]")
     sm = libSniperMgr.SniperMgr("")
     
     mgr = libSniperPython.AlgMgr.instance()
