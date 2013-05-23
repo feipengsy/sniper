@@ -23,8 +23,11 @@ class Derived(libSniperPython.AlgBase):
 if __name__ == "__main__":
 
     import libSniperMgr
+    op = libSniperPython.OptionParser
+    op.OP("test.txt")
+    op.addOption("Hello1", "MyString", "GOD")
     sm = libSniperMgr.SniperMgr("test.txt")
-    #op = libSniperPython.OptionParser.OP("test.txt")
+    
     mgr = libSniperPython.AlgMgr.instance()
 
     d1 = Derived("d1")
