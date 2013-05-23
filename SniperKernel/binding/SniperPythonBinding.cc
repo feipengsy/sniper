@@ -39,8 +39,6 @@ BOOST_PYTHON_MODULE(libSniperPython)
         .staticmethod("OP")
         .def("addOption", &OptionParser::addOption)
         .staticmethod("addOption")
-        .def("setOption", &OptionParser::setOption<int>)
-        .staticmethod("setOption")
     ;
 
     class_<AlgMgr, boost::noncopyable>("AlgMgr", no_init)

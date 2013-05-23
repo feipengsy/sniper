@@ -23,6 +23,7 @@ SniperMgr::SniperMgr(std::string optionfile)
     OptionParser::setOption("GlobalVar", "NumADs",   GlobalVar::NumADs);
     OptionParser::setOption(name(),      "LogLevel", SniperLog::LogLevel);
     OptionParser::setOption(name(),      "EvtMax",   m_evtMax);
+    LogInfo << "EvtMax: " << m_evtMax << std::endl;
 
     /// dynamically load the input service
     std::string isvc;
