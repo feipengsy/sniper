@@ -4,3 +4,12 @@ use SniperKernel   v*
 
 library HelloWorld *.cc
 apply_pattern linker_library library=HelloWorld
+
+library HelloWorldPy ../binding/HelloWorld.cc
+macro HelloWorldPy_dependencies HelloWorld
+macro_append HelloWorldPy_cppflags " `pkg-config --cflags python` "
+macro_append HelloWorldPy_shlibflags " `pkg-config --libs python` "
+macro_append HelloWorldPy_shlibflags " -lboost_python "
+macro_append HelloWorldPy_shlibflags " -lHelloWorld "
+macro_append HelloWorldPy_shlibflags " -lSniperKernel "
+macro_append HelloWorldPy_shlibflags " -lSniperPython "
