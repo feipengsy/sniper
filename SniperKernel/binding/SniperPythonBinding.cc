@@ -25,7 +25,7 @@ struct AlgBaseWrap : AlgBase, wrapper<AlgBase>
         return this->get_override("finalize")();
     }
 
-    void setattr(const std::string& name, object o) {
+    static void setattr(object obj, const std::string& name, object o) {
         
     }
 };
