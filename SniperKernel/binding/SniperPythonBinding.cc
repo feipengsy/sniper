@@ -1,3 +1,4 @@
+#include <iostream>
 #include <string>
 #include "boost/noncopyable.hpp"
 #include "boost/python.hpp"
@@ -27,7 +28,7 @@ struct AlgBaseWrap : AlgBase, wrapper<AlgBase>
 
     static void setattr(object obj, const std::string& name, object o) {
         std::string objname = extract<std::string>(obj.attr("name")());
-        std::string value = extract<std::string>(obj.attr("__repr__")());
+        std::string value = extract<std::string>(o.attr("__repr__")());
         OptionParser::addOption( objname, // object name
                                  name, // option key
                                  value // option value
