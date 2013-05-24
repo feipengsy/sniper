@@ -26,7 +26,15 @@ struct AlgBaseWrap : AlgBase, wrapper<AlgBase>
         return this->get_override("finalize")();
     }
 
-    static void setattr(object obj, const std::string& name, object o) {
+    static void SetAttr(object obj, const std::string& name, object o) {
+        // If the type of obj is defined in python
+        // we just keep the origin method.
+        // else, add these key-value to catalogue.
+        BaseType bt = extract<BaseType>(obj.attr("get_class_type")());
+        if (bt == Sniper_PYTHON) {
+            obj.attr("__dict__")[name] = o;
+            return;
+        } 
         std::string objname = extract<std::string>(obj.attr("name")());
         std::string value = extract<std::string>(o.attr("__repr__")());
         OptionParser::addOption( objname, // object name
@@ -71,7 +79,7 @@ BOOST_PYTHON_MODULE(libSniperPython)
         .def("finalize", pure_virtual(&AlgBase::finalize))
         .def("name", &AlgBase::name, 
                 return_value_policy<copy_const_reference>())
-        .def("__setattr__", &AlgBaseWrap::setattr)
+        .def("__setattr__", &AlgBaseWrap::SetAttr)
         .def("get_class_type", &AlgBase::get_class_type)
     ;
 }
