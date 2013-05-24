@@ -24,6 +24,10 @@ struct AlgBaseWrap : AlgBase, wrapper<AlgBase>
     bool finalize() {
         return this->get_override("finalize")();
     }
+
+    void setattr(const std::string& name, object o) {
+        
+    }
 };
 
 BOOST_PYTHON_MODULE(libSniperPython)
@@ -61,6 +65,7 @@ BOOST_PYTHON_MODULE(libSniperPython)
         .def("finalize", pure_virtual(&AlgBase::finalize))
         .def("name", &AlgBase::name, 
                 return_value_policy<copy_const_reference>())
+        .def("__setattr__", &AlgBaseWrap::setattr)
         .def("get_class_type", &AlgBase::get_class_type)
     ;
 }
