@@ -9,11 +9,6 @@ HelloAlg::HelloAlg(const std::string& name)
 {
     m_count = 0;
 
-    //OptionParser::instance()->addOption(name, "MyString", "LINTAO");
-    setOption("MyString", m_string);
-    setOption("MyVectorInt", m_vector_int);
-    setOption("MyStrInt", m_str_int);
-                            
 }
 
 HelloAlg::~HelloAlg()
@@ -24,6 +19,11 @@ HelloAlg::~HelloAlg()
 bool
 HelloAlg::initialize()
 {
+    //OptionParser::instance()->addOption(name, "MyString", "LINTAO");
+    setOption("MyString", m_string);
+    setOption("MyVectorInt", m_vector_int);
+    setOption("MyStrInt", m_str_int);
+                            
     LogInfo << name() 
             << " initialized successfully"
             << std::endl;

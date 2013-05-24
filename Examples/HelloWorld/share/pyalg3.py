@@ -20,11 +20,11 @@ if __name__ == "__main__":
     import libSniperPython
     import libHelloWorldPy
 
+    x = libHelloWorldPy.HelloAlg("x")
+    x.x = 1
     op.addOption("x", "MyString", repr('GOD'))
     op.addOption("x", "MyVectorInt", repr(range(4)))
     op.addOption("x", "MyStrInt", repr({"str1":1, "str2":2}))
-    x = libHelloWorldPy.HelloAlg("x")
-    x.x = 1
     print x.name()
     x.initialize()
     x.execute()
