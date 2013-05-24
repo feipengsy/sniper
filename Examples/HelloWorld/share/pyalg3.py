@@ -16,11 +16,13 @@ if __name__ == "__main__":
     op.addOption("Sniper", "LogLevel", "3")
     op.addOption("Sniper", "Cycler", "'NormCycler'")
     op.addOption("Sniper", "InputSvc", "'NONE'")
+    op.addOption("Sniper", "EvtMax", "3")
 
     import libSniperPython
     import libHelloWorldPy
 
     x = libHelloWorldPy.HelloAlg("x")
+    x.non = 1
     x.x = 1
     x.MyString = 'GOD'
     x.MyVectorInt = range(4)
@@ -30,3 +32,7 @@ if __name__ == "__main__":
     x.execute()
     x.finalize()
 
+    mgr = libSniperMgr.SniperMgr("")
+    mgr.initialize()
+    mgr.run()
+    mgr.finalize()
