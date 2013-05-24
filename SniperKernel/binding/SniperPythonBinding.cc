@@ -70,6 +70,8 @@ BOOST_PYTHON_MODULE(libSniperPython)
                 /*(AlgBase* (AlgMgr::*)(const std::string&, bool))*/&AlgMgr::get<AlgBase>,
                 return_value_policy<reference_existing_object>())
         .staticmethod("get")
+        .def("AddAlg", &AlgMgr::AddAlg)
+        .staticmethod("AddAlg")
 
     ;
 

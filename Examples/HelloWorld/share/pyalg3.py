@@ -17,13 +17,14 @@ if __name__ == "__main__":
     op.addOption("Sniper", "Cycler", "'NormCycler'")
     op.addOption("Sniper", "InputSvc", "'NONE'")
     op.addOption("Sniper", "EvtMax", "3")
+    # TODO
+    # How To add the Alg into the MGR?
+    #op.addOption("Sniper")
 
     import libSniperPython
     import libHelloWorldPy
 
     x = libHelloWorldPy.HelloAlg("x")
-    x.non = 1
-    x.x = 1
     x.MyString = 'GOD'
     x.MyVectorInt = range(4)
     x.MyStrInt = {"str1":1, "str2":2}
@@ -31,6 +32,8 @@ if __name__ == "__main__":
     x.initialize()
     x.execute()
     x.finalize()
+
+    libSniperPython.AlgMgr.AddAlg(x)
 
     mgr = libSniperMgr.SniperMgr("")
     mgr.initialize()
