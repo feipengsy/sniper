@@ -29,9 +29,9 @@ if __name__ == "__main__":
     x.MyVectorInt = range(4)
     x.MyStrInt = {"str1":1, "str2":2}
     print x.name()
-    x.initialize()
-    x.execute()
-    x.finalize()
+    #x.initialize()
+    #x.execute()
+    #x.finalize()
 
     libSniperPython.AlgMgr.AddAlg(x)
 

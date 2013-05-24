@@ -53,6 +53,10 @@ bool
 HelloAlg::execute()
 {
     ++m_count;
+    LogInfo << name() 
+            << " count: "
+            << m_count
+            << std::endl;
     return true;
 }
 
