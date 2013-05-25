@@ -15,7 +15,7 @@ struct AlgBaseWrap : AlgBase, wrapper<AlgBase>
 {
     AlgBaseWrap(const std::string& name)
         : AlgBase(name, Sniper_PYTHON) {
-        AlgMgr::AddAlg(this);
+        AlgMgr::AddAlg(typename AlgMgr::ElementPtr(this));
     }
     bool initialize() {
         return this->get_override("initialize")();
