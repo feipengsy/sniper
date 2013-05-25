@@ -100,7 +100,7 @@ ElementMgr<Element>::~ElementMgr()
 template<typename Element>
 Element* ElementMgr<Element>::get(const std::string& objName, bool create)
 {
-    typename std::map<std::string, Element*>::iterator i = name2obj.find(objName);
+    typename std::map<std::string, ElementPtr >::iterator i = name2obj.find(objName);
     if ( i != name2obj.end() ) {
 	return (i->second).get();
     }

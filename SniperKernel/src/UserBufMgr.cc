@@ -23,7 +23,7 @@ template<> ElementMgr<UserBuffer>::ElementMgr(const std::string& name)
 	    std::string msg = name + ": unknown selector " + typName;
 	    throw SniperException(msg);
 	}
-	UserBuffer* obj = (j->second)(objName);
+	ElementPtr obj ( (j->second)(objName) );
 	m_elements.push_back(obj);
 	name2obj[objName] = obj;
     }
@@ -62,7 +62,7 @@ PhyEventBuf* UserBufMgr::bufWithSelector(const std::string& selector)
 
 void UserBufMgr::tryPushBack(PhyEvent* evt)
 {
-    for ( std::list<UserBuffer*>::iterator it = m_elements.begin();
+    for ( std::list< ElementPtr >::iterator it = m_elements.begin();
 	    it != m_elements.end(); ++it ) {
 	(*it)->tryPushBack(evt);
     }
@@ -70,7 +70,7 @@ void UserBufMgr::tryPushBack(PhyEvent* evt)
 
 void UserBufMgr::synchronize(PhyEventBuf* buf)
 {
-    for ( std::list<UserBuffer*>::iterator it = m_elements.begin();
+    for ( std::list< ElementPtr >::iterator it = m_elements.begin();
 	    it != m_elements.end(); ++it ) {
 	(*it)->synchronize(buf);
     }

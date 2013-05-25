@@ -24,7 +24,7 @@ ToolMgr* ToolMgr::instance()
 ToolMgr::ToolMgr(const std::string& objname)
     : ElementMgr<ToolBase>(objname)
 {
-    //for ( std::list<ToolBase*>::iterator it = m_elements.begin(); it != m_elements.end(); ++it ) {
-    //    LogInfo << "Load tools : " << (*it)->name() << std::endl;
-    //}
+    for ( std::list< ElementPtr >::iterator it = m_elements.begin(); it != m_elements.end(); ++it ) {
+        LogInfo << "Load tools : " << (*it)->name() << std::endl;
+    }
 }
