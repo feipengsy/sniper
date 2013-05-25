@@ -14,14 +14,14 @@ AlgMgr* AlgMgr::instance()
 AlgMgr::AlgMgr(const std::string& objname)
     : ElementMgr<AlgBase>(objname)
 {
-    for ( std::list<AlgBase*>::iterator it = m_elements.begin(); it != m_elements.end(); ++it ) {
+    for ( std::list< ElementPtr >::iterator it = m_elements.begin(); it != m_elements.end(); ++it ) {
 	LogInfo << "Add  algorithm  : " << (*it)->name() << std::endl;
     }
 }
 
 bool AlgMgr::execute()
 {
-    for ( std::list<AlgBase*>::iterator it = m_elements.begin(); it != m_elements.end(); ++it ) {
+    for ( std::list< ElementPtr >::iterator it = m_elements.begin(); it != m_elements.end(); ++it ) {
 	if ( ! (*it)->execute() ) {
 	    LogError << "failed to execute algorithm " << (*it)->name() << std::endl;
 	    return false;
@@ -31,7 +31,7 @@ bool AlgMgr::execute()
 }
 
 bool
-AlgMgr::AddAlg(AlgBase* alg) {
+AlgMgr::AddAlg(ElementPtr alg) {
     m_elements.push_back(alg);
     name2obj[alg->name()] = alg;
     return true;

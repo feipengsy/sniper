@@ -9,6 +9,6 @@ using namespace boost::python;
 BOOST_PYTHON_MODULE(libHelloWorldPy)
 {
     class_< HelloAlg, boost::shared_ptr<HelloAlg>, bases<AlgBase>, boost::noncopyable> 
-        ("HelloAlg", init<std::string>()) //[return_value_policy<reference_existing_object>()]
+        ("HelloAlg", init<std::string>()) 
         ;
 }

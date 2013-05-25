@@ -8,12 +8,13 @@
 #include <list>
 #include <vector>
 #include <string>
+#include <boost/shared_ptr.hpp>
 
 template<typename Element>
 class ElementMgr
 {
     public :
-
+        typedef boost::shared_ptr<Element> ElementPtr;
 	const std::string& name() { return m_name; }
 
 	static Element* get(const std::string& objName, bool create = false);
@@ -35,9 +36,9 @@ class ElementMgr
 	ElementMgr(const std::string& name);
 	virtual ~ElementMgr();
 
-	static std::list<Element*>            m_elements;
+	static std::list< ElementPtr >            m_elements;
 
-	static std::map<std::string, Element*>  name2obj;
+	static std::map<std::string, ElementPtr >  name2obj;
 
 	typedef Element* (*ElementCreator)(const std::string&);
 	typedef std::map<std::string, ElementCreator> Type2CreatorMap;
@@ -52,10 +53,10 @@ class ElementMgr
 };
 
 template<typename Element>
-std::list<Element*>   ElementMgr<Element>::m_elements;
+std::list< typename ElementMgr<Element>::ElementPtr >   ElementMgr<Element>::m_elements;
 
 template<typename Element>
-std::map<std::string, Element*>  ElementMgr<Element>::name2obj;
+std::map<std::string, typename ElementMgr<Element>::ElementPtr >  ElementMgr<Element>::name2obj;
 
 template<typename Element>
 typename ElementMgr<Element>::Type2CreatorMap  ElementMgr<Element>::elementCreatorMap;
@@ -81,7 +82,7 @@ ElementMgr<Element>::ElementMgr(const std::string& name)
 	    std::string msg = name + ": unknown content type " + typName;
 	    throw SniperException(msg);
 	}
-	Element* obj = (j->second)(objName);
+	ElementPtr obj ( (j->second)(objName) );
 	m_elements.push_back(obj);
 	name2obj[objName] = obj;
     }
@@ -90,9 +91,9 @@ ElementMgr<Element>::ElementMgr(const std::string& name)
 template<typename Element>
 ElementMgr<Element>::~ElementMgr()
 {
-    for(typename std::list<Element*>::iterator i=m_elements.begin(); i!=m_elements.end(); ++i) {
-        if((*i)->get_class_type()==Sniper_CPP)
-            delete (*i);
+    for(typename std::list< ElementPtr >::iterator i=m_elements.begin(); i!=m_elements.end(); ++i) {
+        //if((*i)->get_class_type()==Sniper_CPP)
+        //    delete (*i);
     }
 }
 
@@ -101,15 +102,15 @@ Element* ElementMgr<Element>::get(const std::string& objName, bool create)
 {
     typename std::map<std::string, Element*>::iterator i = name2obj.find(objName);
     if ( i != name2obj.end() ) {
-	return (i->second);
+	return (i->second).get();
     }
     if ( create ) {
 	typename Type2CreatorMap::iterator j = elementCreatorMap.find(objName);
 	if ( j != elementCreatorMap.end() ) {
-	    Element* obj = (j->second)(objName);
+	    ElementPtr obj ( (j->second)(objName) );
 	    m_elements.push_back(obj);
 	    name2obj[objName] = obj;
-	    return obj;
+	    return obj.get();
 	}
     }
     return (Element*)0;
@@ -124,7 +125,7 @@ ConcreteType* ElementMgr<Element>::get(const std::string& objName, bool create)
 template<typename Element>
 bool ElementMgr<Element>::initialize()
 {
-    for(typename std::list<Element*>::iterator i=m_elements.begin(); i!=m_elements.end(); ++i) {
+    for(typename std::list< ElementPtr >::iterator i=m_elements.begin(); i!=m_elements.end(); ++i) {
 	if ( ! (*i)->initialize() ) return false;
     }
     return true;
@@ -133,7 +134,7 @@ bool ElementMgr<Element>::initialize()
 template<typename Element>
 bool ElementMgr<Element>::finalize()
 {
-    for(typename std::list<Element*>::iterator i=m_elements.begin(); i!=m_elements.end(); ++i) {
+    for(typename std::list< ElementPtr >::iterator i=m_elements.begin(); i!=m_elements.end(); ++i) {
 	if ( ! (*i)->finalize() ) return false;
     }
     return true;
