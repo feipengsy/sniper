@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "boost/noncopyable.hpp"
+#include "boost/make_shared.hpp"
 #include "boost/python.hpp"
 using namespace boost::python;
 
@@ -75,7 +76,7 @@ BOOST_PYTHON_MODULE(libSniperPython)
 
     ;
 
-    class_<AlgBaseWrap, boost::noncopyable>("AlgBase", init<std::string>())
+    class_<AlgBaseWrap, boost::shared_ptr<AlgBaseWrap>, boost::noncopyable>("AlgBase", init<std::string>())
         .def("initialize", pure_virtual(&AlgBase::initialize))
         .def("execute", pure_virtual(&AlgBase::execute))
         .def("finalize", pure_virtual(&AlgBase::finalize))
