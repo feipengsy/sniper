@@ -10,6 +10,8 @@ HelloAlg::HelloAlg(const std::string& name)
     m_count = 0;
     // Using declare property
     declProp("MyString", m_string);
+    declProp("MyVectorInt", m_vector_int);
+    declProp("MyStrInt", m_str_int);
 
 }
 
@@ -23,8 +25,6 @@ HelloAlg::initialize()
 {
     //OptionParser::instance()->addOption(name, "MyString", "LINTAO");
     //setOption("MyString", m_string);
-    setOption("MyVectorInt", m_vector_int);
-    setOption("MyStrInt", m_str_int);
                             
     LogInfo << name() 
             << " initialized successfully"
