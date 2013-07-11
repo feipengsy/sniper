@@ -3,6 +3,7 @@
 #include "boost/noncopyable.hpp"
 #include "boost/make_shared.hpp"
 #include "boost/python.hpp"
+namespace bp = boost::python;
 using namespace boost::python;
 
 #include "SniperKernel/OptionParser.h"
@@ -41,6 +42,20 @@ struct AlgBaseWrap : AlgBase, wrapper<AlgBase>
                                  name, // option key
                                  value // option value
                                 );
+    }
+};
+
+// Wraper for PYTHON
+#include "SniperKernel/property.hh"
+
+struct BasePropertyBase: public MyProperty, bp::wrapper<MyProperty>
+{
+    BasePropertyBase(std::string key, bp::object value)
+        : MyProperty(key, value)
+    {}
+
+    void modify(bp::object& new_value) {
+        this->get_override("modify")(new_value);
     }
 };
 
@@ -84,4 +99,17 @@ BOOST_PYTHON_MODULE(libSniperPython)
         .def("__setattr__", &AlgBaseWrap::SetAttr)
         .def("get_class_type", &AlgBase::get_class_type)
     ;
+
+    bp::class_<BasePropertyBase, boost::noncopyable>("MyProperty",
+            bp::init<std::string, bp::object>())
+        .def("modify", bp::pure_virtual(&MyProperty::modify))
+        .def("show", &MyProperty::show)
+        .def("key", &MyProperty::key,
+            bp::return_value_policy<bp::copy_const_reference>())
+        .def("value", &MyProperty::value,
+            bp::return_value_policy<bp::copy_non_const_reference>())
+    ;
+    bp::def("getProperty", &getProperty,
+            bp::return_value_policy<bp::reference_existing_object>());
+    bp::def("setProperty", &setProperty);
 }
