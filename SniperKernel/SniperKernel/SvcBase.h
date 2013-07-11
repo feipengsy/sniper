@@ -2,6 +2,7 @@
 #define SNIPER_SVC_BASE_H
 
 #include "SniperKernel/OptionParser.h"
+#include "SniperKernel/property.hh"
 #include "SniperKernel/SniperLog.h"
 #include "SniperKernel/BaseType.h"
 #include <string>
@@ -21,6 +22,9 @@ class SvcBase
 
 	template<typename Type>
 	bool setOption(const std::string& option, Type& var);
+
+	template<typename Type>
+	bool declProp(const std::string& option, Type& var);
     const BaseType get_class_type() {
         return m_class_type;
     }
@@ -40,6 +44,17 @@ template<typename Type>
 bool SvcBase::setOption(const std::string& option, Type& var)
 {
     return OptionParser::setOption(m_name, option, var);
+}
+
+template<typename Type>
+bool SvcBase::declProp(const std::string& option, Type& var)
+{
+    MyProperty* mp = declareProperty(m_name, option, var);
+    if (mp) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 #endif
