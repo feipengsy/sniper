@@ -14,9 +14,6 @@ apply_pattern install_more_includes more="SniperKernel"
 library SniperKernel *.cc Parsers/*.cc
 apply_pattern linker_library library=SniperKernel
 
-application  sniper  ../app/*.cc
-macro sniper_dependencies  SniperKernel
-
 library SniperMgr ../binding/SniperMgrBinding.cc ../app/SniperMgr.cc
 macro SniperMgr_dependencies SniperKernel 
 macro_append SniperMgr_cppflags " `pkg-config --cflags python` -I ../app/ "
