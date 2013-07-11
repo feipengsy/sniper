@@ -8,6 +8,8 @@ HelloAlg::HelloAlg(const std::string& name)
     : AlgBase(name)
 {
     m_count = 0;
+    // Using declare property
+    declProp("MyString", m_string);
 
 }
 
@@ -20,7 +22,7 @@ bool
 HelloAlg::initialize()
 {
     //OptionParser::instance()->addOption(name, "MyString", "LINTAO");
-    setOption("MyString", m_string);
+    //setOption("MyString", m_string);
     setOption("MyVectorInt", m_vector_int);
     setOption("MyStrInt", m_str_int);
                             

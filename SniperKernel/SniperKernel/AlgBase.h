@@ -28,7 +28,7 @@ class AlgBase
     bool setOption(const std::string& option, Type& var);
 
     template<typename Type>
-    bool declareProperty(const std::string& option, Type& var);
+    bool declProp(const std::string& option, Type& var);
 
     const BaseType get_class_type()  {
         return m_class_type;
@@ -54,7 +54,7 @@ bool AlgBase::setOption(const std::string& option, Type& var)
 }
 
 template<typename Type>
-bool AlgBase::declareProperty(const std::string& option, Type& var)
+bool AlgBase::declProp(const std::string& option, Type& var)
 {
     MyProperty* mp = declareProperty(m_name, option, var);
     if (mp) {
