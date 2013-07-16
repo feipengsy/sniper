@@ -67,7 +67,7 @@ template<typename Element>
 ElementMgr<Element>::ElementMgr(const std::string& name)
     : m_name(name)
 {
-    OptionParser::setOption(name, "Contents", vNames);
+    declareProperty(name, "Contents", vNames);
 
     for(std::vector<std::string>::iterator i=vNames.begin(); i!=vNames.end(); ++i) {
         std::string typName = *i;
