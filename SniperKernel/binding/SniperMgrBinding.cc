@@ -1,15 +1,15 @@
 // Python Binding
-#include "SniperMgr.h"
+#include "SniperMgrV2.h"
 #include "boost/python.hpp"
 
 using namespace boost::python;
 
 BOOST_PYTHON_MODULE(libSniperMgr)
 {
-   class_<SniperMgr>("SniperMgr", init<std::string>())
-       .def("initialize", &SniperMgr::initialize)
-       .def("finalize", &SniperMgr::finalize)
-       .def("run", &SniperMgr::run)
+   class_<SniperMgrV2>("SniperMgr")
+       .def("initialize", &SniperMgrV2::initialize)
+       .def("finalize", &SniperMgrV2::finalize)
+       .def("run", &SniperMgrV2::run)
        //.def("name", &SniperMgr::name)
     ;
 }
