@@ -10,6 +10,7 @@ BOOST_PYTHON_MODULE(libSniperMgr)
        .def("initialize", &SniperMgrV2::initialize)
        .def("finalize", &SniperMgrV2::finalize)
        .def("run", &SniperMgrV2::run)
+       .def("configure", &SniperMgrV2::configure)
        //.def("name", &SniperMgr::name)
     ;
 }

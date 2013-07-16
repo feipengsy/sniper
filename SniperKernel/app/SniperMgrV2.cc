@@ -33,14 +33,6 @@ SniperMgrV2::SniperMgrV2()
     // main Cycler
     /// dynamically set the main Cycler
     declareProperty(name(),      "Cycler",   cycler);
-    //if ( cycler.empty() ) cycler = "NormCycler";
-    //if ( cycler != "NormCycler" ) {
-    //    //FIXME: always load the NormCycler or not ?
-    //    //OptionParser::addOption("SvcMgr",  "Contents",  "{\"NormCycler\"}");
-    //    loadDll(cycler);
-    //}
-    //OptionParser::addOption("SvcMgr", "Contents", std::string("{\"")+cycler+"/Cycler\"}");
-    //LogInfo << "Select Cycler   : " << cycler << std::endl;
 
     ///// always load the TOutputSvc services automatically
     //OptionParser::addOption("SvcMgr",  "Contents",  "{\"TOutputSvc\"}");
@@ -80,6 +72,17 @@ bool SniperMgrV2::configure()
         setProperty("SvcMgr", "Contents", ct);
     }
     LogInfo << "Select InputSvc : " << isvc << std::endl;
+
+    // Cycler
+    if ( cycler.empty() ) cycler = "NormCycler";
+    if ( cycler != "NormCycler" ) {
+        //FIXME: always load the NormCycler or not ?
+        loadDll(cycler);
+    }
+    bp::list ct = (bp::list)getProperty("SvcMgr", "Contents")->value();
+    ct.append(cycler+"/Cycler");
+    setProperty("SvcMgr", "Contents", ct);
+    LogInfo << "Select Cycler   : " << cycler << std::endl;
 
     return true;
 }
