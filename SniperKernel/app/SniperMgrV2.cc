@@ -95,6 +95,7 @@ bool SniperMgrV2::initialize()
 {
     m_cycler = SvcMgr::get<ICycler>("Cycler");
 
+    LogDebug << "Creating Cycler: " << m_cycler << std::endl;
     LogDebug << "initializing ..." << std::endl;
     // TODO
     // validate the property

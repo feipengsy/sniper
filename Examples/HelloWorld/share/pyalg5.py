@@ -4,11 +4,18 @@
 
 # using the new Mgr.
 
+import sys
+
+# From PyCintex in ROOT
+dlflags = sys.getdlopenflags()
+sys.setdlopenflags( 0x100 | 0x2 )    # RTLD_GLOBAL | RTLD_NOW
+
 import libSniperPython
+import libSniperMgr
+
 
 if __name__ == "__main__":
 
-    import libSniperMgr
     mgr = libSniperMgr.SniperMgr()
     libSniperPython.setProperty("Sniper", "EvtMax", 5)
     libSniperPython.setProperty("Sniper", "InputSvc", "NONE")
