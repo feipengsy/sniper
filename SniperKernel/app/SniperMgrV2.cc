@@ -39,9 +39,6 @@ SniperMgrV2::SniperMgrV2()
 
     /// loading dynamic libraries
     declareProperty(name(),      "Dlls",     dlls);
-    //for(std::vector<std::string>::iterator it=dlls.begin(); it!=dlls.end(); ++it) {
-    //    loadDll(*it);
-    //}
 
     /// instance of services and algorithms
     m_svcs   = SvcMgr::instance();
@@ -83,6 +80,11 @@ bool SniperMgrV2::configure()
     ct.append(cycler+"/Cycler");
     setProperty("SvcMgr", "Contents", ct);
     LogInfo << "Select Cycler   : " << cycler << std::endl;
+
+    // Loading Libraries
+    for(std::vector<std::string>::iterator it=dlls.begin(); it!=dlls.end(); ++it) {
+        loadDll(*it);
+    }
 
     return true;
 }

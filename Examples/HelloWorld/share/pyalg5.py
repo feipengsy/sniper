@@ -13,6 +13,7 @@ if __name__ == "__main__":
     libSniperPython.setProperty("Sniper", "EvtMax", 5)
     libSniperPython.setProperty("Sniper", "InputSvc", "NONE")
 
+    mgr.configure()
     # TODO
     # How To add the Alg into the MGR?
     #op.addOption("Sniper")
@@ -34,7 +35,6 @@ if __name__ == "__main__":
 
     libSniperPython.AlgMgr.AddAlg(x)
 
-    mgr.configure()
     mgr.initialize()
     mgr.run()
     mgr.finalize()
