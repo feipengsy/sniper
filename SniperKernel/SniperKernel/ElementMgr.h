@@ -25,6 +25,7 @@ class ElementMgr
         virtual bool initialize();
         virtual bool finalize();
 
+        virtual bool configure();
 
     private :
 
@@ -68,6 +69,20 @@ ElementMgr<Element>::ElementMgr(const std::string& name)
 {
     declareProperty(name, "Contents", vNames);
 
+}
+
+template<typename Element>
+ElementMgr<Element>::~ElementMgr()
+{
+    for(typename std::list< ElementPtr >::iterator i=m_elements.begin(); i!=m_elements.end(); ++i) {
+        //if((*i)->get_class_type()==Sniper_CPP)
+        //    delete (*i);
+    }
+}
+
+template<typename Element>
+bool ElementMgr<Element>::configure() 
+{
     for(std::vector<std::string>::iterator i=vNames.begin(); i!=vNames.end(); ++i) {
         std::string typName = *i;
         std::string objName = typName;
@@ -79,22 +94,14 @@ ElementMgr<Element>::ElementMgr(const std::string& name)
 
         typename Type2CreatorMap::iterator j = elementCreatorMap.find(typName);
         if ( j == elementCreatorMap.end() ) {
-            std::string msg = name + ": unknown content type " + typName;
+            std::string msg = name() + ": unknown content type " + typName;
             throw SniperException(msg);
         }
         ElementPtr obj ( (j->second)(objName) );
         m_elements.push_back(obj);
         name2obj[objName] = obj;
     }
-}
-
-template<typename Element>
-ElementMgr<Element>::~ElementMgr()
-{
-    for(typename std::list< ElementPtr >::iterator i=m_elements.begin(); i!=m_elements.end(); ++i) {
-        //if((*i)->get_class_type()==Sniper_CPP)
-        //    delete (*i);
-    }
+    return true;
 }
 
 template<typename Element>

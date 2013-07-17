@@ -88,6 +88,11 @@ bool SniperMgrV2::configure()
         loadDll(*it);
     }
 
+    // Configure Alg, Svc, Tool
+    m_svcs->configure();
+    m_algs->configure();
+    m_tools->configure();
+
     return true;
 }
 
