@@ -19,6 +19,7 @@ if __name__ == "__main__":
     mgr = libSniperMgr.SniperMgr()
     libSniperPython.setProperty("Sniper", "EvtMax", 5)
     libSniperPython.setProperty("Sniper", "InputSvc", "NONE")
+    libSniperPython.setProperty("Sniper", "LogLevel", 2)
 
     mgr.configure()
     # TODO
