@@ -27,10 +27,3 @@ macro_append SniperPython_cppflags " `pkg-config --cflags python` "
 macro_append SniperPython_shlibflags " `pkg-config --libs python` "
 macro_append SniperPython_shlibflags " -lboost_python "
 macro_append SniperPython_shlibflags " -lSniperKernel "
-
-#library SniperOptionParser ../binding/SniperOptionParser.cpp
-#macro SniperOptionParser_dependencies SniperKernel 
-#macro_append SniperOptionParser_cppflags " `pkg-config --cflags python` "
-#macro_append SniperOptionParser_shlibflags " `pkg-config --libs python` "
-#macro_append SniperOptionParser_shlibflags " -lboost_python "
-#macro_append SniperOptionParser_shlibflags " -lSniperKernel "
