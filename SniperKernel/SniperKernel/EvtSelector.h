@@ -1,7 +1,6 @@
 #ifndef SNIPER_EVT_SELECTOR_H
 #define SNIPER_EVT_SELECTOR_H
 
-#include "SniperKernel/OptionParser.h"
 #include "SniperKernel/SniperLog.h"
 #include <string>
 
@@ -18,8 +17,8 @@ class EvtSelector
 
 	const std::string& name() { return m_name; }
 
-	template<typename Type>
-	bool setOption(const std::string& option, Type& var);
+//	template<typename Type>
+//	bool setOption(const std::string& option, Type& var);
 
     protected :
 
@@ -31,10 +30,10 @@ class EvtSelector
 	EvtSelector& operator=(const EvtSelector&);  //not supported
 };
 
-template<typename Type>
-bool EvtSelector::setOption(const std::string& option, Type& var)
-{
-    return OptionParser::setOption(m_name, option, var);
-}
+//template<typename Type>
+//bool EvtSelector::setOption(const std::string& option, Type& var)
+//{
+//    return OptionParser::setOption(m_name, option, var);
+//}
 
 #endif

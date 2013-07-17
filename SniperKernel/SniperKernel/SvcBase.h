@@ -1,7 +1,6 @@
 #ifndef SNIPER_SVC_BASE_H
 #define SNIPER_SVC_BASE_H
 
-#include "SniperKernel/OptionParser.h"
 #include "SniperKernel/property.hh"
 #include "SniperKernel/SniperLog.h"
 #include "SniperKernel/BaseType.h"
@@ -21,9 +20,6 @@ class SvcBase
 	virtual bool finalize() = 0;
 
 	template<typename Type>
-	bool setOption(const std::string& option, Type& var);
-
-	template<typename Type>
 	bool declProp(const std::string& option, Type& var);
     const BaseType get_class_type() {
         return m_class_type;
@@ -39,12 +35,6 @@ class SvcBase
 	SvcBase(const SvcBase&);  //not supported
 	SvcBase& operator=(const SvcBase&);  //not supported
 };
-
-template<typename Type>
-bool SvcBase::setOption(const std::string& option, Type& var)
-{
-    return OptionParser::setOption(m_name, option, var);
-}
 
 template<typename Type>
 bool SvcBase::declProp(const std::string& option, Type& var)

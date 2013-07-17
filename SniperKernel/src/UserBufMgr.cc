@@ -7,7 +7,7 @@ template<> ElementMgr<UserBuffer>::ElementMgr(const std::string& name)
     : m_name(name)
 {
     std::vector<std::string> vNames;
-    OptionParser::setOption(name, "Selectors", vNames);
+    //OptionParser::setOption(name, "Selectors", vNames);
 
     for(std::vector<std::string>::iterator i=vNames.begin(); i!=vNames.end(); ++i) {
 	std::string typName = *i;
