@@ -56,6 +56,8 @@ SniperMgrV2::~SniperMgrV2()
 
 bool SniperMgrV2::configure()
 {
+    // EvtMax
+    LogInfo << "EvtMax: " << m_evtMax << std::endl;
     // Input Svc
     if ( isvc.empty() ) {
         throw SniperException(name()+".InputSvc is not set properly!");
