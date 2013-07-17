@@ -6,8 +6,6 @@
 namespace bp = boost::python;
 using namespace boost::python;
 
-#include "SniperKernel/OptionParser.h"
-
 #include "SniperKernel/AlgMgr.h"
 #include "SniperKernel/AlgBase.h"
 
@@ -38,10 +36,10 @@ struct AlgBaseWrap : AlgBase, wrapper<AlgBase>
         } 
         std::string objname = extract<std::string>(obj.attr("name")());
         std::string value = extract<std::string>(o.attr("__repr__")());
-        OptionParser::addOption( objname, // object name
-                                 name, // option key
-                                 value // option value
-                                );
+        //OptionParser::addOption( objname, // object name
+        //                         name, // option key
+        //                         value // option value
+        //                        );
     }
 };
 
@@ -65,13 +63,6 @@ BOOST_PYTHON_MODULE(libSniperPython)
     enum_<BaseType>("BaseType")
         .value("Sniper_CPP", Sniper_CPP)
         .value("Sniper_PYTHON", Sniper_PYTHON)
-    ;
-    class_<OptionParser, boost::noncopyable>("OptionParser", no_init)
-        .def("OP", &OptionParser::instance, 
-                return_value_policy<reference_existing_object>())
-        .staticmethod("OP")
-        .def("addOption", &OptionParser::addOption)
-        .staticmethod("addOption")
     ;
 
     class_<AlgMgr, boost::noncopyable>("AlgMgr", no_init)

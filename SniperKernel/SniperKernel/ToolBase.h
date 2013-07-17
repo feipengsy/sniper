@@ -1,7 +1,6 @@
 #ifndef SNIPER_TOOL_BASE_H
 #define SNIPER_TOOL_BASE_H
 
-#include "SniperKernel/OptionParser.h"
 #include "SniperKernel/property.hh"
 #include "SniperKernel/SniperLog.h"
 #include "SniperKernel/BaseType.h"
@@ -16,9 +15,6 @@ class ToolBase
 	virtual ~ToolBase() {}
 
 	const std::string& name() { return m_name; }
-
-	template<typename Type>
-	bool setOption(const std::string& option, Type& var);
 
     template<typename Type>
     bool declProp(const std::string& option, Type& var);
@@ -37,12 +33,6 @@ class ToolBase
 	ToolBase(const ToolBase&);  //not supported
 	ToolBase& operator=(const ToolBase&);  //not supported
 };
-
-template<typename Type>
-bool ToolBase::setOption(const std::string& option, Type& var)
-{
-    return OptionParser::setOption(m_name, option, var);
-}
 
 template<typename Type>
 bool ToolBase::declProp(const std::string& option, Type& var)

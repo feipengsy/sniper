@@ -1,7 +1,6 @@
 #ifndef SNIPER_ALGBASE_H
 #define SNIPER_ALGBASE_H
 
-#include "SniperKernel/OptionParser.h"
 #include "SniperKernel/property.hh"
 #include "SniperKernel/SvcBase.h"
 #include "SniperKernel/SniperLog.h"
@@ -25,9 +24,6 @@ class AlgBase
     SvcBase* service(const std::string& name);
 
     template<typename Type>
-    bool setOption(const std::string& option, Type& var);
-
-    template<typename Type>
     bool declProp(const std::string& option, Type& var);
 
     const BaseType get_class_type()  {
@@ -46,12 +42,6 @@ class AlgBase
     AlgBase(const AlgBase&);
     AlgBase& operator=(const AlgBase&);
 };
-
-template<typename Type>
-bool AlgBase::setOption(const std::string& option, Type& var)
-{
-    return OptionParser::setOption(m_name, option, var);
-}
 
 template<typename Type>
 bool AlgBase::declProp(const std::string& option, Type& var)
