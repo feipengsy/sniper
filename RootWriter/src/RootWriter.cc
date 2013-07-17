@@ -11,6 +11,7 @@ DECLARE_SERVICE(RootWriter);
 RootWriter::RootWriter(const std::string& name)
     : SvcBase(name)
 {
+    declProp("Output", fmap);
 }
 
 RootWriter::~RootWriter()
@@ -19,8 +20,6 @@ RootWriter::~RootWriter()
 
 bool RootWriter::initialize()
 {
-    std::map<std::string, std::string> fmap;
-    OptionParser::setOption(name(), "Output", fmap);
 
     for ( std::map<std::string, std::string>::iterator it = fmap.begin(); it != fmap.end(); ++it ) {
 	addFile(it->first, it->second);
