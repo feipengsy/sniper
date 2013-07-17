@@ -20,6 +20,7 @@ mgr.configure()
 d = {"FILE1": "output1.root", "FILE2": "output2.root"}
 sp.setProperty("RootWriter", "Output", d)
 
+# begin to run
 mgr.initialize()
 mgr.run()
 mgr.finalize()
