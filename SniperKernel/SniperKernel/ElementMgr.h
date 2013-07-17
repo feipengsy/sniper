@@ -4,6 +4,7 @@
 #include "SniperKernel/property.hh"
 #include "SniperKernel/SniperException.h"
 #include "SniperKernel/BaseType.h"
+#include "SniperKernel/SniperLog.h"
 #include <map>
 #include <list>
 #include <vector>
@@ -84,6 +85,7 @@ template<typename Element>
 bool ElementMgr<Element>::configure() 
 {
     for(std::vector<std::string>::iterator i=vNames.begin(); i!=vNames.end(); ++i) {
+        LogDebug << "Loading " << *i << std::endl;
         std::string typName = *i;
         std::string objName = typName;
         std::string::size_type pseg = typName.find('/', 0);
@@ -97,6 +99,7 @@ bool ElementMgr<Element>::configure()
             std::string msg = name() + ": unknown content type " + typName;
             throw SniperException(msg);
         }
+        LogDebug << "Createor: " << j->second << std::endl;
         ElementPtr obj ( (j->second)(objName) );
         m_elements.push_back(obj);
         name2obj[objName] = obj;

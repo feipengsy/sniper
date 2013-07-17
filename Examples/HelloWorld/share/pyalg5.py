@@ -10,8 +10,8 @@ import sys
 dlflags = sys.getdlopenflags()
 sys.setdlopenflags( 0x100 | 0x2 )    # RTLD_GLOBAL | RTLD_NOW
 
-import libSniperPython
 import libSniperMgr
+import libSniperPython
 
 
 if __name__ == "__main__":
@@ -25,7 +25,6 @@ if __name__ == "__main__":
     # How To add the Alg into the MGR?
     #op.addOption("Sniper")
 
-    import libSniperPython
     import libHelloWorldPy
 
     x = libHelloWorldPy.HelloAlg("x")

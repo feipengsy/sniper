@@ -89,8 +89,11 @@ bool SniperMgrV2::configure()
     }
 
     // Configure Alg, Svc, Tool
+    LogDebug << "Configure Svcs" << std::endl;
     m_svcs->configure();
+    LogDebug << "Configure Algs" << std::endl;
     m_algs->configure();
+    LogDebug << "Configure Tools" << std::endl;
     m_tools->configure();
 
     return true;
