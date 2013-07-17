@@ -2,6 +2,7 @@
 #define SNIPER_EVT_SELECTOR_H
 
 #include "SniperKernel/SniperLog.h"
+#include "SniperKernel/property.hh"
 #include <string>
 
 class PhyEvent;
@@ -17,8 +18,8 @@ class EvtSelector
 
 	const std::string& name() { return m_name; }
 
-//	template<typename Type>
-//	bool setOption(const std::string& option, Type& var);
+        template<typename Type>
+        bool declProp(const std::string& option, Type& var);
 
     protected :
 
@@ -30,10 +31,15 @@ class EvtSelector
 	EvtSelector& operator=(const EvtSelector&);  //not supported
 };
 
-//template<typename Type>
-//bool EvtSelector::setOption(const std::string& option, Type& var)
-//{
-//    return OptionParser::setOption(m_name, option, var);
-//}
+template<typename Type>
+bool EvtSelector::declProp(const std::string& option, Type& var)
+{
+    MyProperty* mp = declareProperty(m_name, option, var);
+    if (mp) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
 #endif
