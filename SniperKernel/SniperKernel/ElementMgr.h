@@ -1,7 +1,6 @@
 #ifndef SNIPER_ELEMENT_MGR_H
 #define SNIPER_ELEMENT_MGR_H
 
-#include "SniperKernel/OptionParser.h"
 #include "SniperKernel/property.hh"
 #include "SniperKernel/SniperException.h"
 #include "SniperKernel/BaseType.h"
