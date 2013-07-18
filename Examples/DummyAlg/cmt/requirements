@@ -4,4 +4,7 @@ use SniperKernel   v*
 use RootWriter     v*
 
 library DummyAlg *.cc
+macro_append DummyAlg_cppflags " `pkg-config --cflags python` "
+macro_append DummyAlg_shlibflags " `pkg-config --libs python` "
+macro_append DummyAlg_shlibflags " -lboost_python "
 apply_pattern linker_library library=DummyAlg
