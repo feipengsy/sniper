@@ -3,10 +3,9 @@ package RootWriter
 use SniperKernel   v*
 use RootInterface  v*
 
+use Boost v* Externals
+
 apply_pattern install_more_includes more="RootWriter"
 
 library RootWriter *.cc
-macro_append RootWriter_cppflags " `pkg-config --cflags python` "
-macro_append RootWriter_shlibflags " `pkg-config --libs python` "
-macro_append RootWriter_shlibflags " -lboost_python "
 apply_pattern linker_library library=RootWriter
