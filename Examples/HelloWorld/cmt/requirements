@@ -2,17 +2,13 @@ package HelloWorld
 
 use SniperKernel   v*
 
+use Boost v* Externals
+
 library HelloWorld *.cc
-macro_append HelloWorld_cppflags " `pkg-config --cflags python` "
-macro_append HelloWorld_shlibflags " `pkg-config --libs python` "
-macro_append HelloWorld_shlibflags " -lboost_python "
 apply_pattern linker_library library=HelloWorld
 
 library HelloWorldPy ../binding/HelloWorld.cc
 macro HelloWorldPy_dependencies HelloWorld
-macro_append HelloWorldPy_cppflags " `pkg-config --cflags python` "
-macro_append HelloWorldPy_shlibflags " `pkg-config --libs python` "
-macro_append HelloWorldPy_shlibflags " -lboost_python "
 macro_append HelloWorldPy_shlibflags " -lHelloWorld "
 macro_append HelloWorldPy_shlibflags " -lSniperKernel "
 macro_append HelloWorldPy_shlibflags " -lSniperPython "
