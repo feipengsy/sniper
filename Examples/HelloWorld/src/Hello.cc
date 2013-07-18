@@ -1,6 +1,5 @@
 #include "Hello.h"
 #include "SniperKernel/AlgFactory.h"
-#include "SniperKernel/OptionParser.h"
 
 DECLARE_ALGORITHM(HelloAlg);
 

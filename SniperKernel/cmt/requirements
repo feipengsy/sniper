@@ -21,3 +21,4 @@ macro_append SniperMgr_shlibflags " -lSniperKernel "
 library SniperPython ../binding/SniperPythonBinding.cc
 macro SniperPython_dependencies SniperKernel 
 macro_append SniperPython_shlibflags " -lSniperKernel "
+

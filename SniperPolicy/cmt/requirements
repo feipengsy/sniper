@@ -78,3 +78,10 @@ macro remove_command "$(cmt_uninstallarea_command)"
 
 macro library_install_command "python $(SniperPolicy_root)/cmt/fragments/install.py -xCVS -x.svn -x*~ -x*.stamp -s --log=./install.history "
 macro cmt_installarea_command "python $(SniperPolicy_root)/cmt/fragments/install.py -xCVS -x.svn -x*~ -x*.stamp -s --log=./install.history "
+
+# setup python path
+
+cmtpath_pattern \
+    macro <project>_python_path "$(CMTINSTALLAREA)/$(tag)/lib" ; \
+    path_remove PYTHONPATH $(<project>_python_path) ; \
+    path_prepend PYTHONPATH $(<project>_python_path) ;
