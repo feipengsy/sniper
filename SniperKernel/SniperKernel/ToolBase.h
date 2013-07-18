@@ -1,7 +1,7 @@
 #ifndef SNIPER_TOOL_BASE_H
 #define SNIPER_TOOL_BASE_H
 
-#include "SniperKernel/OptionParser.h"
+#include "SniperKernel/property.hh"
 #include "SniperKernel/SniperLog.h"
 #include "SniperKernel/BaseType.h"
 #include <string>
@@ -16,8 +16,8 @@ class ToolBase
 
 	const std::string& name() { return m_name; }
 
-	template<typename Type>
-	bool setOption(const std::string& option, Type& var);
+    template<typename Type>
+    bool declProp(const std::string& option, Type& var);
 
     const BaseType get_class_type()  {
         return m_class_type;
@@ -35,9 +35,14 @@ class ToolBase
 };
 
 template<typename Type>
-bool ToolBase::setOption(const std::string& option, Type& var)
+bool ToolBase::declProp(const std::string& option, Type& var)
 {
-    return OptionParser::setOption(m_name, option, var);
+    MyProperty* mp = declareProperty(m_name, option, var);
+    if (mp) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 #endif

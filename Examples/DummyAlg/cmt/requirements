@@ -3,5 +3,7 @@ package DummyAlg
 use SniperKernel   v*
 use RootWriter     v*
 
+use Boost v* Externals
+
 library DummyAlg *.cc
 apply_pattern linker_library library=DummyAlg

@@ -49,6 +49,7 @@ class RootWriter : public SvcBase
 
 	//fKey -> TFile
 	std::map<std::string, TFile*> m_key2file;
+        std::map<std::string, std::string> fmap;
 };
 
 template<class Type>

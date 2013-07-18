@@ -1,6 +1,7 @@
 #include "SniperKernel/NormCycler.h"
 #include "SniperKernel/UserBufMgr.h"
 #include "SniperKernel/SvcMgr.h"
+#include "SniperKernel/property.hh"
 
 NormCycler::NormCycler(const std::string& name)
     : SvcBase(name),
@@ -13,6 +14,7 @@ NormCycler::NormCycler(const std::string& name)
     }
 
     m_name = "NormCycler";  //to avoid naming confusion
+    declareProperty(m_name, "TimeWindow", m_window);
 }
 
 NormCycler::~NormCycler()
@@ -22,7 +24,6 @@ NormCycler::~NormCycler()
 
 bool NormCycler::initialize()
 {
-    setOption("TimeWindow", m_window);
     if ( m_window.size() != 2 ) {
 	m_window.clear();
 	m_window.push_back(-0.001);

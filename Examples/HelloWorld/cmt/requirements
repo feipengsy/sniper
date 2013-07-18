@@ -6,6 +6,9 @@ macro_prepend HelloWorld_cppflags " -I /afs/ihep.ac.cn/soft/dayabay/jmne/externa
 macro_prepend HelloWorld_shlibflags " -L /afs/ihep.ac.cn/soft/dayabay/jmne/external/local/lib "
 
 library HelloWorld *.cc
+macro_append HelloWorld_cppflags " `pkg-config --cflags python` "
+macro_append HelloWorld_shlibflags " `pkg-config --libs python` "
+macro_append HelloWorld_shlibflags " -lboost_python "
 apply_pattern linker_library library=HelloWorld
 
 library HelloWorldPy ../binding/HelloWorld.cc

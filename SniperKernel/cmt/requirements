@@ -2,35 +2,22 @@ package SniperKernel
 
 use SniperPolicy   v*
 
-macro_prepend SniperKernel_cppflags " -I /afs/ihep.ac.cn/soft/dayabay/jmne/external/local/include "
-macro_prepend SniperKernel_shlibflags " -L /afs/ihep.ac.cn/soft/dayabay/jmne/external/local/lib "
+use Boost v* Externals
+
 macro_append SniperKernel_shlibflags " -lboost_regex "
 macro_append SniperKernel_shlibflags " -lboost_system "
 macro_append SniperKernel_shlibflags " -lboost_filesystem "
-#macro_append SniperKernel_shlibflags " -lboost_python "
 
 apply_pattern install_more_includes more="SniperKernel"
 
 library SniperKernel *.cc Parsers/*.cc
 apply_pattern linker_library library=SniperKernel
 
-application  sniper  ../app/*.cc
-macro sniper_dependencies  SniperKernel
-
-library SniperMgr ../binding/SniperMgrBinding.cc ../app/SniperMgr.cc
+library SniperMgr ../binding/SniperMgrBinding.cc ../app/SniperMgrV2.cc
 macro SniperMgr_dependencies SniperKernel 
-macro_append SniperMgr_cppflags " -I /afs/ihep.ac.cn/soft/dayabay/jmne/external/local/include "
-macro_append SniperMgr_shlibflags " -L /afs/ihep.ac.cn/soft/dayabay/jmne/external/local/lib "
-macro_append SniperMgr_cppflags " `pkg-config --cflags python` -I ../app/ "
-macro_append SniperMgr_shlibflags " `pkg-config --libs python` "
-macro_append SniperMgr_shlibflags " -lboost_python "
+macro_append SniperMgr_cppflags " -I ../app/ "
 macro_append SniperMgr_shlibflags " -lSniperKernel "
 
 library SniperPython ../binding/SniperPythonBinding.cc
 macro SniperPython_dependencies SniperKernel 
-macro_append SniperPython_cppflags " -I /afs/ihep.ac.cn/soft/dayabay/jmne/external/local/include "
-macro_append SniperPython_shlibflags " -L /afs/ihep.ac.cn/soft/dayabay/jmne/external/local/lib "
-macro_append SniperPython_cppflags " `pkg-config --cflags python` "
-macro_append SniperPython_shlibflags " `pkg-config --libs python` "
-macro_append SniperPython_shlibflags " -lboost_python "
 macro_append SniperPython_shlibflags " -lSniperKernel "
