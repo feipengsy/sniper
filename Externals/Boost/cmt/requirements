@@ -1,0 +1,15 @@
+package Boost
+
+use Configuration v* Externals
+use Python v* Externals
+
+macro Boost_home "${BOOSTHOME}"
+
+macro Boost_linkopts " -L$(Boost_home)/lib "
+macro_append Boost_linkopts " -lboost_python "
+
+include_path none
+include_dirs $(Boost_home)/include
+
+path_remove LD_LIBRARY_PATH "$(Boost_home)/lib"
+path_prepend LD_LIBRARY_PATH "$(Boost_home)/lib"
