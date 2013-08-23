@@ -23,7 +23,7 @@ class ToolBase
         return getProperty(m_name, option);
     }
 
-    const BaseType get_class_type()  {
+    BaseType get_class_type()  {
         return m_class_type;
     }
 

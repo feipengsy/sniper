@@ -33,7 +33,7 @@ class DataBuffer
 	inline int      backwardSize();
 
 	void            clear();
-    const BaseType get_class_type() {
+    BaseType get_class_type() {
         return m_class_type;
     }
 
