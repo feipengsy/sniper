@@ -27,7 +27,7 @@ class AlgBase
     bool declProp(const std::string& option, Type& var);
 
     MyProperty* getProp(const std::string& option) {
-        getProperty(m_name, option);
+        return getProperty(m_name, option);
     }
 
     const BaseType get_class_type()  {

@@ -19,6 +19,10 @@ class ToolBase
     template<typename Type>
     bool declProp(const std::string& option, Type& var);
 
+    MyProperty* getProp(const std::string& option) {
+        return getProperty(m_name, option);
+    }
+
     const BaseType get_class_type()  {
         return m_class_type;
     }

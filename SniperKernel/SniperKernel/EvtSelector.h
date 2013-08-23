@@ -21,6 +21,10 @@ class EvtSelector
         template<typename Type>
         bool declProp(const std::string& option, Type& var);
 
+    MyProperty* getProp(const std::string& option) {
+        return getProperty(m_name, option);
+    }
+
     protected :
 
 	std::string m_name;
