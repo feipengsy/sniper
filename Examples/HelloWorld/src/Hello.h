@@ -22,6 +22,7 @@ class HelloAlg: public AlgBase
         int m_count;
 
         void f_string_handler(MyProperty*);
+        void f_string_updater(MyProperty*);
 
         std::string m_string;
         std::vector<int> m_vector_int;

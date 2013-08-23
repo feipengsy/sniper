@@ -17,6 +17,9 @@ HelloAlg::HelloAlg(const std::string& name)
     getProperty(name, "MyString")->declareRead(
             boost::bind(&HelloAlg::f_string_handler, this, _1)
             );
+    getProperty(name, "MyString")->declareUpdate(
+            boost::bind(&HelloAlg::f_string_updater, this, _1)
+            );
 
 }
 
@@ -86,6 +89,15 @@ HelloAlg::f_string_handler(MyProperty* p)
 {
     LogInfo << name()
             << " call "
+            << p->key()
+            << std::endl;
+}
+
+void
+HelloAlg::f_string_updater(MyProperty* p)
+{
+    LogInfo << name()
+            << " set "
             << p->key()
             << std::endl;
 }
