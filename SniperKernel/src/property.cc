@@ -30,6 +30,7 @@ setProperty(std::string objname,
     }
 
     pb->modify(value);
+    return true;
 
 }
 
