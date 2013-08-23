@@ -65,6 +65,11 @@ public:
         } else {
 
         }
+
+        // call update handler
+        if (!m_update.empty()) {
+            m_update(this);
+        }
     }
 private:
     T& m_var;
@@ -91,6 +96,10 @@ public:
         m_var.insert(m_var.end(), begin, end);
         m_value = other;
 
+        // call update handler
+        if (!m_update.empty()) {
+            m_update(this);
+        }
     }
 private:
     std::vector< T >& m_var;
@@ -142,6 +151,10 @@ public:
 
         }
 
+        // call update handler
+        if (!m_update.empty()) {
+            m_update(this);
+        }
     }
 private:
     std::map< Key, T >& m_var;
