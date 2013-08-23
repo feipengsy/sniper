@@ -15,6 +15,7 @@ public:
     MyProperty(std::string key, bp::object value)
         : m_key(key), m_value(value)
     {}
+    virtual ~MyProperty() {};
     virtual void modify(bp::object& other) = 0;
     void show(); 
 
