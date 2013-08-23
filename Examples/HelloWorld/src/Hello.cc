@@ -1,6 +1,8 @@
 #include "Hello.h"
 #include "SniperKernel/AlgFactory.h"
 
+#include <boost/bind.hpp>
+
 DECLARE_ALGORITHM(HelloAlg);
 
 HelloAlg::HelloAlg(const std::string& name)
@@ -11,6 +13,10 @@ HelloAlg::HelloAlg(const std::string& name)
     declProp("MyString", m_string);
     declProp("MyVectorInt", m_vector_int);
     declProp("MyStrInt", m_str_int);
+
+    getProperty(name, "MyString")->declareRead(
+            boost::bind(&HelloAlg::f_string_handler, this, _1)
+            );
 
 }
 
@@ -73,4 +79,13 @@ HelloAlg::finalize()
             << std::endl;
 
     return true;
+}
+
+void
+HelloAlg::f_string_handler(MyProperty* p)
+{
+    LogInfo << name()
+            << " call "
+            << p->key()
+            << std::endl;
 }

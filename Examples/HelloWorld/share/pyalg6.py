@@ -32,6 +32,8 @@ if __name__ == "__main__":
     libSniperPython.setProperty("x", "MyVectorInt", range(4))
     libSniperPython.setProperty("x", "MyStrInt", {"str1":1, "str2":2})
 
+    libSniperPython.getProperty("x", "MyString").value()
+
     mgr.initialize()
     mgr.run()
     mgr.finalize()

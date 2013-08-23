@@ -21,6 +21,8 @@ class HelloAlg: public AlgBase
     private:
         int m_count;
 
+        void f_string_handler(MyProperty*);
+
         std::string m_string;
         std::vector<int> m_vector_int;
         std::map<std::string, int> m_str_int;
