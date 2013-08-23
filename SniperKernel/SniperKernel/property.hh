@@ -3,6 +3,7 @@
 
 #include <boost/python.hpp>
 #include <boost/python/stl_iterator.hpp>
+#include <boost/function.hpp>
 #include <string>
 #include <vector>
 #include <map>
@@ -25,10 +26,21 @@ public:
         return m_value;
     }
 
+    // Idea From Gaudi
+    void declareRead(boost::function<void(MyProperty&)> f) {
+        m_read = f;
+    }
+    void declareUpdate(boost::function<void(MyProperty&)> f) {
+        m_update = f;
+    }
+
 
 protected:
     std::string m_key;
     bp::object m_value;
+
+    boost::function<void(MyProperty&)> m_read;
+    boost::function<void(MyProperty&)> m_update;
 
 };
 
