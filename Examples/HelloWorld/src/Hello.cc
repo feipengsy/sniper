@@ -14,10 +14,10 @@ HelloAlg::HelloAlg(const std::string& name)
     declProp("MyVectorInt", m_vector_int);
     declProp("MyStrInt", m_str_int);
 
-    getProperty(name, "MyString")->declareRead(
+    getProp("MyString")->declareRead(
             boost::bind(&HelloAlg::f_string_handler, this, _1)
             );
-    getProperty(name, "MyString")->declareUpdate(
+    getProp("MyString")->declareUpdate(
             boost::bind(&HelloAlg::f_string_updater, this, _1)
             );
 
