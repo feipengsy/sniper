@@ -23,14 +23,17 @@ public:
     }
 
     bp::object& value() {
+        if (!m_read.empty()) {
+            m_read(this);
+        }
         return m_value;
     }
 
     // Idea From Gaudi
-    void declareRead(boost::function<void(MyProperty&)> f) {
+    void declareRead(boost::function<void(MyProperty*)> f) {
         m_read = f;
     }
-    void declareUpdate(boost::function<void(MyProperty&)> f) {
+    void declareUpdate(boost::function<void(MyProperty*)> f) {
         m_update = f;
     }
 
@@ -39,8 +42,8 @@ protected:
     std::string m_key;
     bp::object m_value;
 
-    boost::function<void(MyProperty&)> m_read;
-    boost::function<void(MyProperty&)> m_update;
+    boost::function<void(MyProperty*)> m_read;
+    boost::function<void(MyProperty*)> m_update;
 
 };
 
