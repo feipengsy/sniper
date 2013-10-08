@@ -43,7 +43,7 @@ struct AlgBaseWrap : AlgBase, wrapper<AlgBase>
     }
 };
 
-// Wraper for PYTHON
+// Wrapper for PYTHON
 #include "SniperKernel/property.hh"
 
 struct BasePropertyBase: public MyProperty, bp::wrapper<MyProperty>
@@ -54,6 +54,22 @@ struct BasePropertyBase: public MyProperty, bp::wrapper<MyProperty>
 
     void modify(bp::object& new_value) {
         this->get_override("modify")(new_value);
+    }
+};
+
+// Wrapper for Svc
+#include "SniperKernel/SvcMgr.h"
+#include "SniperKernel/SvcBase.h"
+struct SvcBaseWrap : SvcBase, wrapper<SvcBase>
+{
+    SvcBaseWrap(const std::string& name)
+        : SvcBase(name, Sniper_PYTHON) {
+    }
+    bool initialize() {
+        return this->get_override("initialize")();
+    }
+    bool finalize() {
+        return this->get_override("finalize")();
     }
 };
 
@@ -90,6 +106,24 @@ BOOST_PYTHON_MODULE(libSniperPython)
         .def("__setattr__", &AlgBaseWrap::SetAttr)
         .def("get_class_type", &AlgBase::get_class_type)
         .def("setProp", &AlgBase::setProp)
+    ;
+
+    class_<SvcMgr, boost::noncopyable>("SvcMgr", no_init)
+        .def("instance", &SvcMgr::instance,
+                return_value_policy<reference_existing_object>())
+        .staticmethod("instance")
+        .def("get",
+                &SvcMgr::get<SvcBase>,
+                return_value_policy<reference_existing_object>())
+        .staticmethod("get")
+    ;
+
+    class_<SvcBaseWrap, boost::shared_ptr<SvcBaseWrap>, boost::noncopyable>("SvcBase", init<std::string>())
+        .def("initialize", pure_virtual(&SvcBase::initialize))
+        .def("finalize", pure_virtual(&SvcBase::finalize))
+        .def("name", &SvcBase::name, 
+                return_value_policy<copy_const_reference>())
+        .def("setProp", &SvcBase::setProp)
     ;
 
     bp::class_<BasePropertyBase, boost::noncopyable>("MyProperty",
