@@ -89,6 +89,7 @@ BOOST_PYTHON_MODULE(libSniperPython)
                 return_value_policy<copy_const_reference>())
         .def("__setattr__", &AlgBaseWrap::SetAttr)
         .def("get_class_type", &AlgBase::get_class_type)
+        .def("setProp", &AlgBase::setProp)
     ;
 
     bp::class_<BasePropertyBase, boost::noncopyable>("MyProperty",
