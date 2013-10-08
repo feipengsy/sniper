@@ -115,11 +115,18 @@ Element* ElementMgr<Element>::get(const std::string& objName, bool create)
         return (i->second).get();
     }
     if ( create ) {
-        typename Type2CreatorMap::iterator j = elementCreatorMap.find(objName);
+        std::string typName2 = objName;
+        std::string objName2 = typName2;
+        std::string::size_type pseg = typName2.find('/', 0);
+        if ( pseg != std::string::npos ) {
+            typName2 = typName2.substr(0, pseg);
+            objName2 = objName2.substr(pseg+1, std::string::npos);
+        }
+        typename Type2CreatorMap::iterator j = elementCreatorMap.find(typName2);
         if ( j != elementCreatorMap.end() ) {
-            ElementPtr obj ( (j->second)(objName) );
+            ElementPtr obj ( (j->second)(objName2) );
             m_elements.push_back(obj);
-            name2obj[objName] = obj;
+            name2obj[objName2] = obj;
             return obj.get();
         }
     }

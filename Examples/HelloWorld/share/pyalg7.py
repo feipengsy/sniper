@@ -23,12 +23,13 @@ if __name__ == "__main__":
     libSniperPython.setProperty("Sniper", "Dlls", ["HelloWorld"])
 
 
-    libSniperPython.setProperty("AlgMgr", "Contents", ["HelloAlg/x"])
+    #libSniperPython.setProperty("AlgMgr", "Contents", ["HelloAlg/x"])
 
     mgr.configure()
     # TODO
 
-    x = libSniperPython.AlgMgr.get("x",False)
+    #x = libSniperPython.AlgMgr.get("x",False)
+    x = libSniperPython.AlgMgr.get("HelloAlg/x",True)
 
     x.setProp("MyString", "GOD")
     x.setProp("MyVectorInt", range(6))
