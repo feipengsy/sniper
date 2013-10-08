@@ -73,6 +73,16 @@ struct SvcBaseWrap : SvcBase, wrapper<SvcBase>
     }
 };
 
+// Wrapper for Tool
+#include "SniperKernel/ToolMgr.h"
+#include "SniperKernel/ToolBase.h"
+struct ToolBaseWrap : ToolBase, wrapper<ToolBase>
+{
+    ToolBaseWrap(const std::string& name)
+        : ToolBase(name, Sniper_PYTHON) {
+    }
+};
+
 BOOST_PYTHON_MODULE(libSniperPython)
 {
 
@@ -124,6 +134,22 @@ BOOST_PYTHON_MODULE(libSniperPython)
         .def("name", &SvcBase::name, 
                 return_value_policy<copy_const_reference>())
         .def("setProp", &SvcBase::setProp)
+    ;
+
+
+    class_<ToolMgr, boost::noncopyable>("ToolMgr", no_init)
+        .def("instance", &ToolMgr::instance,
+                return_value_policy<reference_existing_object>())
+        .staticmethod("instance")
+        .def("get",
+                &ToolMgr::get<ToolBase>,
+                return_value_policy<reference_existing_object>())
+        .staticmethod("get")
+    ;
+    class_<ToolBaseWrap, boost::shared_ptr<ToolBaseWrap>, boost::noncopyable>("ToolBase", init<std::string>())
+        .def("name", &ToolBase::name, 
+                return_value_policy<copy_const_reference>())
+        .def("setProp", &ToolBase::setProp)
     ;
 
     bp::class_<BasePropertyBase, boost::noncopyable>("MyProperty",
