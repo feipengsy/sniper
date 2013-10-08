@@ -20,5 +20,5 @@ if __name__ == "__main__":
     mgr.configure()
 
     rw = libSniperPython.SvcMgr.get("RootWriter/rw", True)
-    rw.setProp("Out", {"FILE1":"hello.root"})
+    rw.setProp("Output", {"FILE1":"hello.root"})
     print rw
