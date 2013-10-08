@@ -13,3 +13,8 @@ include_dirs $(Boost_home)/include
 
 path_remove LD_LIBRARY_PATH "$(Boost_home)/lib"
 path_prepend LD_LIBRARY_PATH "$(Boost_home)/lib"
+
+pattern python_library \
+    library <library>Py <bindcode> \
+    macro <library>Py_dependencies <library> \
+    macro_append <library>Py_dependencies <dep_library>
