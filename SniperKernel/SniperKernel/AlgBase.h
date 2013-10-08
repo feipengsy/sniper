@@ -30,6 +30,10 @@ class AlgBase
         return getProperty(m_name, option);
     }
 
+    bool setProp(const std::string& option, bp::object& obj) {
+        return setProperty(m_name, option, obj);
+    }
+
     BaseType get_class_type()  {
         return m_class_type;
     }
