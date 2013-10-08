@@ -16,9 +16,12 @@ sp.setProperty("SvcMgr", "Contents", ["RootWriter"])
 
 mgr.configure()
 
+dalg = sp.AlgMgr.get("DummyAlg/dalg", True)
+rw = sp.SvcMgr.get("RootWriter/rw", True)
+
 # now to configure the algs and svcs.
 d = {"FILE1": "output1.root", "FILE2": "output2.root"}
-sp.setProperty("RootWriter", "Output", d)
+rw.setProp("Output", d)
 
 # begin to run
 mgr.initialize()
