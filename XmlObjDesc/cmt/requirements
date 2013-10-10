@@ -1,0 +1,38 @@
+package XmlObjDesc
+
+version v0
+
+include_path none
+macro xmlsrc "xml"
+
+# GOD fragments header file and dictionary production
+make_fragment obj2doth -header=obj2doth_header -trailer=obj2doth_trailer
+make_fragment xodsrc -header=xodsrc_header -trailer=xodsrc_trailer
+make_fragment xoddll -header=xoddll_header -trailer=xoddll_trailer
+
+pattern xod_headers \
+   document obj2doth <package>Obj2Doth <files> ; \
+   macro_append <package>_dependencies <package>Obj2Doth ; \
+   macro_append install_more_includes_dependencies " <package>Obj2Doth "
+
+pattern xod_srcs \
+   document xodsrc <package>xodsrc <files>
+
+pattern cint_dictionary \
+   document rootcint <package>Dict <files>
+
+pattern xod_dlls \
+   document xoddll <package>xoddll <files>
+
+use PythonInterface  v* 
+use SniperPolicy v*
+use BoostInterface v*
+use RootInterface V*
+
+# Always switch off XmlObjDesc custom allocators with debug or WIN32
+macro_append cppflags "" \
+                debug " -DGOD_NOALLOC " \
+                WIN32 " -DGOD_NOALLOC "
+macro_append gccxmlopts "" \
+                debug " -DGOD_NOALLOC " \
+                WIN32 " -DGOD_NOALLOC "

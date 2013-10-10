@@ -1,0 +1,17 @@
+xodcpp      = g++
+xodopt      = -c
+xodopt2     = -o
+xodinopt    = -I
+xoddllopt   = -shared -O2 -m32
+xodobjopt   = -O2 -Wall -fPIC -pthread -m32
+xoddictdir  = $(PACKAGE_ROOT)/$(tag)/dict/
+xodsrcdir   = $(PACKAGE_ROOT)/src/
+xodhdir     = $(PACKAGE_ROOT)/Event/
+xoddest     = $(PACKAGE_ROOT)/$(tag)/
+
+${CONSTITUENT}_output = $(xoddest)
+
+${CONSTITUENT}_objlist = 
+${CONSTITUENT}_dlllist = 
+${CONSTITUENT}_cleanuplist =
+

@@ -13,3 +13,6 @@ path_prepend PATH "$(ROOT_home)/bin"
 
 path_remove  LD_LIBRARY_PATH "/root/"
 path_prepend LD_LIBRARY_PATH "$(ROOT_home)/lib"
+
+macro rootcint '"$(ROOT_home)/bin/rootcint"'
+make_fragment rootcint -header=rootcint_header -trailer=rootcint_trailer

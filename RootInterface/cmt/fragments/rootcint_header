@@ -1,0 +1,6 @@
+dict = $(PACKAGE_ROOT)/$(tag)/dict/
+
+${CONSTITUENT}_output = $(dict)
+
+${CONSTITUENT} :: ${OBJS}
+	@echo "------> ${CONSTITUENT} ok"

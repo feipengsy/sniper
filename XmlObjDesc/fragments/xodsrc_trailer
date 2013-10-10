@@ -1,0 +1,8 @@
+clean :: ${CONSTITUENT}clean
+	@cd .
+
+
+
+${CONSTITUENT}clean ::
+	$(cleanup_echo) .cc files:
+	-$(cleanup_silent) rm -f $(${CONSTITUENT}_cleanuplist)

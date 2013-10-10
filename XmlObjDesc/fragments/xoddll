@@ -1,0 +1,25 @@
+${CONSTITUENT} :: $(xoddest)${NAME}Dict.so
+
+${CONSTITUENT}_dlllist +=  $(xoddest)${NAME}Dict.so
+${CONSTITUENT}_objlist +=  $(xoddest)${NAME}.o
+${CONSTITUENT}_objlist +=  $(xoddest)${NAME}Dict.o
+
+$(xoddest)${NAME}Dict.so : $(xoddest)${NAME}.o $(xoddest)${NAME}Dict.o
+	@echo Producing dll files from ${NAME}.o ${NAME}Dict.o
+	@-mkdir -p $(xoddest)
+	@cd $(xoddest); $(xodcpp) $(xoddllopt) ${NAME}.o ${NAME}Dict.o $(xodopt2) ${NAME}Dict.so
+
+$(xoddest)${NAME}.o : $(xodsrcdir)${NAME}.cc
+	@echo Producing obj files from ${NAME}.cc
+	@-mkdir -p $(xoddest)
+	@cd $(xoddest); $(xodcpp) $(xodobjopt) $(xodinopt)$(xodhdir) $(xodinopt)$(ROOT_header_file_filter) $(xodopt) $(src)${NAME}.cc
+
+$(xoddest)${NAME}Dict.o : $(xoddictdir)${NAME}Dict.cc
+	@echo Producing obj files from $(xoddictdir)${NAME}Dict.cc
+	@-mkdir -p $(xoddest)
+	@cd $(xoddest); $(xodcpp) $(xodobjopt) $(xodinopt)$(ROOT_header_file_filter) $(xodinopt)$(xodhdir) $(xodopt) $(xoddictdir)${NAME}Dict.cc
+
+
+${CONSTITUENT}_cleanuplist += $(xoddest)${NAME}Dict.so
+${CONSTITUENT}_cleanuplist += $(xoddest)${NAME}.o
+${CONSTITUENT}_cleanuplist += $(xoddest)${NAME}Dict.o

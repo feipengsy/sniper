@@ -1,0 +1,14 @@
+<?xml encoding="UTF-8"?>
+<!-- ?xml encoding="ISO-8859-1"? -->
+<!ELEMENT gdd (attr*)>
+<!ATTLIST gdd
+        version          CDATA                             "1.0"
+>
+
+<!ELEMENT attr (attr*)>
+<!ATTLIST attr
+        type               CDATA                             #REQUIRED
+        namespace          CDATA                             #IMPLIED
+        path               CDATA                             #IMPLIED
+        methodlink         (TRUE | FALSE)                    "FALSE"
+>

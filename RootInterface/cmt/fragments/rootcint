@@ -1,0 +1,8 @@
+$(dict)${NAME}.rootcint : $(dict)${NAME}Dict.cc
+	@echo $@
+
+$(dict)${NAME}Dict.cc : ${FULLNAME}
+	@echo Generating ROOT Dictionary $@ 
+	@-mkdir -p $(dict) 
+	cd $(FILEPATH);$(rootcint) -f $(dict)${NAME}Dict.cc -c ${${NAME}_cintflags} ${FILENAME} $(src)$(NAME)LinkDef.h
+
