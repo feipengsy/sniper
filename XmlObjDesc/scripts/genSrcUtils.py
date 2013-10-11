@@ -200,6 +200,15 @@ class genSrcUtils(importUtils.importUtils):
       for att in godClass['attribute'] :
         attAtt = att['attrs']
         if (attAtt['access'] == modifier.upper() or modifier == 'all') and att['attrs']['storage'] == 'TRUE' :
+          transient = ''
+          length = ''
+          pointer = ''
+          if attAtt['transient'] == 'TRUE':
+            transient = '!'
+          elif attAtt['pointer'] == 'TRUE':
+            pointer = '->'
+          elif attAtt.has_key( 'length' ):
+            length = '[' + str( attAtt['length'] ) + ']'
           attType = attAtt['type']
           if attType in ['bitfield8','bitfield16','bitfield','bitfield32','bitfield64']:
             self.bitfieldEnums[modifier.lower()] += self.genBitfield(att)
@@ -213,9 +222,12 @@ class genSrcUtils(importUtils.importUtils):
             if attAtt.has_key('init') : namespaceInit = ' = %s;'%attAtt['init']
           else :
             name = 'm_%s;' % name
-          s += '  %s %s%s ///< %s\n' % (attAtt['type'].ljust(maxLenTypNam[0]), \
+          s += '  %s %s%s //%s%s%s %s\n' % (attAtt['type'].ljust(maxLenTypNam[0]), \
                                         name.ljust(maxLenTypNam[1]), \
                                         namespaceInit.ljust(maxLenTypNam[2]), \
+                                        transient, \
+                                        length, \
+                                        pointer, \
                                         attAtt['desc'])
     if godClass.has_key('relation'):
       for rel in godClass['relation'] :

@@ -142,8 +142,7 @@
         nonconstaccessor (TRUE | FALSE)                   "FALSE"
         storage          (TRUE | FALSE)                   "TRUE"
         virtualaccessor  (TRUE | FALSE | PURE)            "FALSE"
-        streamer         (TRUE | FALSE)                   "TRUE"
-        aotustreamer     (TRUE | FALSE)                   "FALSE"
+        pointer          (TRUE | FALSE)                   "FALSE"
         extern           (TRUE | FALSE)                   "FALSE"
 >
 <!ELEMENT relation EMPTY>
