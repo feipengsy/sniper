@@ -1,8 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE gdd SYSTEM "xld.dtd">
 <gdd>
-<attr type="HepLorentzVector" namespace="CLHEP">
-  <attr type="Hep3Vector" namespace="CLHEP">
+<!--CLEHP Vector start -->
+<attr name="HepAxisAngle" ns="CLHEP">
+  <attr name="Hep3Vector" ns="CLHEP"/>
+</attr>
+<attr name="HepBoost" ns="CLHEP">
+  <attr type="struct" name="HepRep4x4Symmetric" ns="CLHEP" />
+</attr>
+<attr name="HepRotation" ns="CLHEP" />
+<attr name="HepLorentzRotation" ns="CLHEP" />
+<attr name="HepBoostX" ns="CLHEP" />
+<attr name="HepBoostY" ns="CLHEP" />
+<attr name="HepBoostZ" ns="CLHEP" />
+<attr name="HepEulerAngles" ns="CLHEP" />
+<attr name="HepLorentzVector" ns="CLHEP">
+  <attr name="Hep3Vector" ns="CLHEP" />
+</attr>
+<attr name="HepRotationX" ns="CLHEP" />
+<attr name="HepRotationY" ns="CLHEP" />
+<attr name="HepRotationZ" ns="CLHEP" />
+<attr name="Hep2Vector" ns="CLHEP" />
+<!--CLEHP Vector end -->
+<!--CLHEP Random start -->
+<attr name="HepRandomVector" ns="CLHEP">
+  <attr name="HepRandomEngine" ns="CLHEP"/>
+</attr>
+<attr name="RandMultiGauss" base="CLHEP::HepRandomVector" ns="CLHEP">
+  <attr name="HepRandomVector" ns="CLHEP">
+    <attr name="HepRandomEngine" ns="CLHEP"/>
+  </attr>
+  <attr name="HepVector" base="CLHEP::HepGenMatrix" ns="CLHEP">
+    <attr name="HepGenMatrix" ns="CLHEP" />
+  </attr>
+  <attr name="HepMatrix" base="CLHEP::HepGenMatrix" ns="CLHEP">
+    <attr name="HepGenMatrix" ns="CLHEP" />
   </attr>
 </attr>
+<!--CLHEP Random end -->
+<!--CLHEP Matrix start -->
+<attr name="HepDiagMatrix" base="CLHEP::HepGenMatrix" ns="CLHEP">
+  <attr name="HepGenMatrix" ns="CLHEP"/>
+</attr>
+<!--CLHEP Matrix end -->
 </gdd>
+

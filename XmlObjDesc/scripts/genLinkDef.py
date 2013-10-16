@@ -18,15 +18,15 @@ class genLinkDef:
     xld = x.parseSource( self.godRoot + 'xml_files/xld.xml' )
     return xld['attr']
 
-  def findClass( self, classtype, xldList ):
+  def findClass( self, classname, xldList ):
     i = 1
     for attrDict in xldList:
       ct = ''
-      if attrDict['attrs'].has_key( 'namespace' ):
-        ct = attrDict['attrs']['namespace'] + '::' + attrDict['attrs']['type']
+      if attrDict['attrs'].has_key( 'ns' ):
+        ct = attrDict['attrs']['ns'] + '::' + attrDict['attrs']['name']
       else:
-        ct = attrDict['attrs']['type']
-      if ct == classtype:
+        ct = attrDict['attrs']['name']
+      if ct == classname:
         return { 'OK' : True, 'Value' : attrDict }
       if attrDict.has_key('attr'):
         return { 'OK' : False, 'Value' : attrDict['attr'] + xldList[i:] }
@@ -35,16 +35,16 @@ class genLinkDef:
 
   def getClassTree( self, xld, classList ):
     classTree = {}
-    for classtype in classList:
+    for classname in classList:
       result = { 'OK' : False, 'Value' : xld }
       while True:
-        result = self.findClass( classtype, result['Value'] )
+        result = self.findClass( classname, result['Value'] )
         if not result['Value']:
-          print 'Cannot find extern class %s, please report to us' % classtype #FIXME think what should we do here
-          classTree[classtype] = ''
+          print 'Cannot find extern class %s, please report to us' % classname #FIXME think what should we do here
+          classTree[classname] = ''
           break
         if result['OK']:
-          classTree[classtype] = result['Value']
+          classTree[classname] = result['Value']
           break
     return classTree
 
@@ -52,15 +52,15 @@ class genLinkDef:
     finalList = []
     for k,v in classTree.items():
       if v:
-        finalList.append( k )
+        finalList.append( k + '#class' )
         if v.has_key( 'attr' ):
           vList = v['attr']
           while True:
             ct = ''
-            if vList[0]['attrs'].has_key( 'namespace' ):
-              ct = vList[0]['attrs']['namespace'] + '::' + vList[0]['attrs']['type']
+            if vList[0]['attrs'].has_key( 'ns' ):
+              ct = vList[0]['attrs']['ns'] + '::' + vList[0]['attrs']['name'] + '#' + vList[0]['attrs']['type']
             else:
-              ct = vList[0]['attrs']['type']
+              ct = vList[0]['attrs']['name'] + '#' + vList[0]['attrs']['type']
             finalList.append( ct )
             if vList[0].has_key( 'attr' ):
               vList = vList[0]['attr'] + vList[1:]
@@ -69,7 +69,11 @@ class genLinkDef:
               if not vList:
                 break
     finalList = finalList[::-1]
-    return finalList
+    finalList1 = []
+    for ele in finalList:
+      if ele not in finalList1:
+        finalList1.append( ele )
+    return finalList1
         
   def doit( self, package, godClasses, ns, outputDir ):
     for godClass in godClasses:
@@ -81,12 +85,18 @@ class genLinkDef:
         classTree = self.getClassTree( xldList, classList )
         finalList = self.getLinkDefClasses( classTree )
         for ct in finalList:
-          s = s + '#pragma link off all_function ' + ct + ';\n'
+          if ct.endswith( '#class' ):
+            s = s + '#pragma link off all_function ' + ct[:-6] + ';\n'
         for ct in finalList:
-          s = s + '#pragma link C++ class ' + ct + ';\n'
-      s = s + '#pragma link C++ class %s::%s;\n' % ( ns, godClass['attrs']['name'] )
+          ctList = ct.split('#')
+          if ctList[1] == 'class':
+            s = s + '#pragma link C++ class %s+;\n' %  ctList[0]
+          else:
+            s = s + '#pragma link C++ %s %s;\n' %  ( ctList[1], ctList[0] )
+      s = s + '#pragma link C++ class %s::%s+;\n' % ( ns, godClass['attrs']['name'] )
       s = s + '\n\n#endif'
       fileName = '%sLinkDef.h' % godClass['attrs']['name']
       ldFile = open( outputDir+os.sep+fileName,'w' )
       ldFile.write( s )
       ldFile.close()
+

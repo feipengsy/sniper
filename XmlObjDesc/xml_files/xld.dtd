@@ -7,8 +7,11 @@
 
 <!ELEMENT attr (attr*)>
 <!ATTLIST attr
-        type               CDATA                             #REQUIRED
-        namespace          CDATA                             #IMPLIED
+        type               CDATA                             "class"
+        name               CDATA                             #REQUIRED
+        ns                 CDATA                             #IMPLIED
+        base               CDATA                             #IMPLIED
         path               CDATA                             #IMPLIED
         methodlink         (TRUE | FALSE)                    "FALSE"
 >
+
