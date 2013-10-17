@@ -1,4 +1,4 @@
-iimport xparser,os
+import xparser,os
 
 class genLinkDef:
   
