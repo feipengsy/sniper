@@ -477,7 +477,7 @@ class genClasses(genSrcUtils.genSrcUtils):
       s += '\n%s};\n\n' % indent[1:]
     return s
 #--------------------------------------------------------------------------------
-  def genClassIDFun(self,godClass,scopeName='') :
+  def genClassIDFun(self,godClass,scopeName=''):
     s = ''
     if godClass['attrs'].has_key('id') :                                        # then we know that it is an event class
       if (not scopeName) :                                                       # we are inside the class (declaration)
@@ -532,7 +532,7 @@ class genClasses(genSrcUtils.genSrcUtils):
       s += '/// typedef for ObjectVector of %s\n' % classname
       s += 'typedef ObjectVector<%s> Container;\n' % (classname)
     return s
-#--------------------------------------------------------------------------------added by Li
+#-------------------------------------------------------------------------------- added by Li
   def genClassDefine( self, className ):
     s = ''
     s += 'ClassDef(%s,1);   //For extensive RTTI(Run Time Type Information) and ROOT object I/O and inspection.\n' % className
@@ -779,6 +779,7 @@ class genClasses(genSrcUtils.genSrcUtils):
       for modifier in ['public','protected','private']:
         classDict[modifier+'Typedefs']          = self.genTypedefs(modifier,godClass)
         classDict[modifier+'Attributes']        = self.genAttributes(modifier,godClass)
+        classDict[modifier+'TemplateAttr']      = self.genTemplateAttr(modifier,godClass)
         classDict[modifier+'BitfieldEnums']     = self.bitfieldEnums[modifier]
         classDict[modifier+'Enums']             = self.genEnums(modifier,godClass)
         classDict[modifier+'MethodDecls']       = self.genMethods(modifier,godClass)
@@ -800,8 +801,8 @@ class genClasses(genSrcUtils.genSrcUtils):
       classDict['forwardDeclsGlob']             = self.genForwardDeclsGlob()
       classDict['forwardDeclsLHCb']             = self.genForwardDeclsLHCb()
       classDict['forwardIncludes']              = self.genForwardIncludes(classname)
-      classDict['classDefine']                  = self.genClassDefine(classname) #added by Li      
-
+      classDict['classDefine']                  = self.genClassDefine(classname) #added by Li
+      
       g = gparser.gparser()
       g.parse(self.godRoot+'templates/header.tpl',classDict)
 
@@ -818,3 +819,4 @@ class genClasses(genSrcUtils.genSrcUtils):
 #  x.parse()
 #  g = genClasses(x.gdd)
 #  g.doit()
+

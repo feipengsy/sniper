@@ -242,6 +242,63 @@ class genSrcUtils(importUtils.importUtils):
           s += '  %s %s ///< %s\n' % (relType.ljust(maxLenTypNam[0]),
                                         ('m_%s;'%relAtt['name']).ljust(maxLenTypNam[1]), relAtt['desc'])
     return s
+
+  def genTemplateAttr(self,modifier,godClass,namespace=0):
+    s = ''
+    maxLenTypNam = [0,0,0]
+    if godClass.has_key( 'template' ):
+      for att in godClass['template']:
+        if (att['attrs']['access'] == modifier.upper() or modifier == 'all') and att['attrs']['storage'] == 'TRUE' :
+          transient = ''
+          length = ''
+          pointer = ''
+          if att['attrs']['transient'] == 'TRUE':
+            transient = '!'
+          elif att['attrs']['pointer'] == 'TRUE':
+            pointer = '->'
+          elif att['attrs'].has_key( 'length' ):
+            length = '[' + str( attAtt['length'] ) + ']'
+          tempType = att['attrs']['type'] + '<'
+          tempName = att['attrs']['name']
+          namespaceInit = ''
+          maxLenTypNam[0] = max( maxLenTypNam[0], len(att['attrs']['type'] ) + 2 )
+          maxLenTypNam[1] = max( maxLenTypNam[1], len(att['attrs']['name'] ) )
+          if namespace and att['attrs'].has_key('init'):
+            namespaceInit = ' = %s;' % att['attrs']['init']
+            maxLenTypNam[2] = max( maxLenTypNam[2], len( att['attrs']['init'] ) )
+          attTypeList = att['typename']
+          depth = 0
+          depthLength = { 0 : len( attTypeList ) }
+          while True:
+            if depthLength[depth] == 0:
+              if tempType.endswith( ',' ):
+                tempType = tempType[:-1]
+              tempType = tempType + '>,'
+              depth = depth - 1
+            if attTypeList[0].has_key( 'typename' ):
+              tempType = tempType + attTypeList[0]['attrs']['type'] + '<'
+              maxLenTypNam[0] = maxLenTypNam[0] + len( attTypeList[0]['attrs']['type'] ) + 3
+              depthLength[depth] = depthLength[depth] - 1
+              depth = depth + 1
+              depthLength[depth] = len( attTypeList[0]['typename'] )
+              attTypeList = attTypeList[0]['typename'] + attTypeList[1:]
+            else:
+              tempType = tempType + attTypeList[0]['attrs']['type'] + ','
+              maxLenTypNam[0] = maxLenTypNam[0] + len( attTypeList[0]['attrs']['type'] ) + 1
+              depthLength[depth] = depthLength[depth] - 1
+              attTypeList = attTypeList[1:]
+            if not attTypeList:
+              break
+          if tempType.endswith( ',' ):
+            tempType = tempType[:-1]
+          s += '  %s %s%s //%s%s%s %s\n' % (tempType.ljust(maxLenTypNam[0]), \
+                                        name.ljust(maxLenTypNam[1]), \
+                                        namespaceInit.ljust(maxLenTypNam[2]), \
+                                        transient, \
+                                        length, \
+                                        pointer, \
+                                        att['attrs']['desc'])
+    return s
 #--------------------------------------------------------------------------------
   def genMethod(self,met,scopeName=''):
     s = ''
@@ -316,3 +373,4 @@ class genSrcUtils(importUtils.importUtils):
   def comment(self,desc):
     "Util routine to allow multi line comments"
     return "\n".join(map(lambda l: "/// " + l, desc.split("\\n")))+"\n"
+
