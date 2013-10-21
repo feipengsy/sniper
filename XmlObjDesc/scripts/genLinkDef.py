@@ -8,10 +8,63 @@ class genLinkDef:
   def getExternClasses( self, godClass ):
     classList = []
     for att in godClass['attribute']:
-      if att['attrs'].has_key( 'extern' ):
-        if att['attrs']['extern'] == 'TRUE':
-          classList.append( att['attrs']['type'] )
+      if att['attrs']['extern'] == 'TRUE':
+        classList.append( att['attrs']['type'] )
     return classList
+
+  def genExternTemplates( self, godClass ):
+    templateList = []
+    templateDict = {}
+    for att in godClass['template']:
+      if att['attrs']['extern'] == 'TRUE':
+        templateList.append( att['attrs']['type'] )
+      attTypeList = att['typename']
+      while True:
+        if attTypeList[0].has_key( 'typename' ):
+          if attTypeList[0]['attrs']['extern'] == 'TRUE':
+            templateType = attTypeList[0]['attrs']['type']
+            templateList.append( templateType )
+            if not templateDict.has_key( templateType ):
+              templateDict[templateType] = self.findTempParameter( attTypeList[0]['typename'] )
+          attTypeList = attTypeList[0]['typename'] + attTypeList[1:]
+        else:
+          if attTypeList[0]['attrs']['extern'] == 'TRUE':
+            templateType = attTypeList[0]['attrs']['type']
+            templateList.append( templateType )
+            templateDict[templateType] = ''
+          attTypeList = attTypeList[1:]
+        if not attTypeList:               
+          break
+    return ( templateList, templateDict )
+
+  def findTempParameter( self, attTypeList ):
+    tempParameter = '<'
+    depth = 0
+    depthLength = { 0 : len( attTypeList ) }
+    while True:
+      if attTypeList[0].has_key( 'typename' ):
+        tempParameter = tempParameter + attTypeList[0]['attrs']['type'] + '<'
+        depthLength[depth] = depthLength[depth] - 1
+        depth = depth + 1
+        depthLength[depth] = len( attTypeList[0]['typename'] )
+        attTypeList = attTypeList[0]['typename'] + attTypeList[1:]
+      else:
+        tempParameter = tempParameter + attTypeList[0]['attrs']['type'] + ','
+        depthLength[depth] = depthLength[depth] - 1
+        attTypeList = attTypeList[1:]
+      if depthLength[depth] == 0:
+        if tempParameter.endswith( ',' ):
+          tempParameter = tempParameter[:-1]
+        tempParameter = tempParameter + '>,'
+        depth = depth - 1
+      if not attTypeList:
+        if tempParameter.endswith( ',' ):
+          tempParameter = tempParameter[:-1]
+        while depth >= 0:
+          tempParameter = tempParameter + '>'
+          depth = depth - 1                
+        break
+    return tempParameter
 
   def parseXld( self ):
     x = xparser.xparser()
@@ -31,11 +84,11 @@ class genLinkDef:
       if attrDict.has_key('attr'):
         return { 'OK' : False, 'Value' : attrDict['attr'] + xldList[i:] }
       i = i + 1
-    return { 'OK' : False, 'Value' : '' }    
+    return { 'OK' : False, 'Value' : '' }
 
   def getClassTree( self, xld, classList ):
     classTree = {}
-    for classname in classList:
+    for classname in allList:
       result = { 'OK' : False, 'Value' : xld }
       while True:
         result = self.findClass( classname, result['Value'] )
@@ -80,17 +133,25 @@ class genLinkDef:
       s = ''
       s = s + '#ifdef __CINT__\n\n\n'
       classList = self.getExternClasses( godClass )
-      if classList:
+      tempTuple = self.genExternTemplates( godClass )
+      allList = tempTuple + classList
+      if allList:
         xldList = self.parseXld()
-        classTree = self.getClassTree( xldList, classList )
-        finalList = self.getLinkDefClasses( classTree )
+        classTree = self.getClassTree( xldList, allList )
+        finalList = self.getLinkDefClasses( classTree )       
         for ct in finalList:
           if ct.endswith( '#class' ):
-            s = s + '#pragma link off all_function ' + ct[:-6] + ';\n'
+            if ct[:-6] in tempTuple[0]:
+              s = s + '#pragma link off all_function ' + ct[:-6] + tempTuple[1][ct[:-6]] + ';\n'
+            else:
+              s = s + '#pragma link off all_function ' + ct[:-6] + ';\n'
         for ct in finalList:
           ctList = ct.split('#')
           if ctList[1] == 'class':
-            s = s + '#pragma link C++ class %s+;\n' %  ctList[0]
+            if ctList[0] in tempTuple[0]:
+              s = s + '#pragma link C++ class %s%s+;\n' %  ( ctList[0], tempTuple[1][ctList[0]] )
+            else:
+              s = s + '#pragma link C++ class %s+;\n' %  ctList[0]
           else:
             s = s + '#pragma link C++ %s %s;\n' %  ( ctList[1], ctList[0] )
       s = s + '#pragma link C++ class %s::%s+;\n' % ( ns, godClass['attrs']['name'] )
