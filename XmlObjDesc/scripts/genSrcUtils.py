@@ -270,11 +270,6 @@ class genSrcUtils(importUtils.importUtils):
           depth = 0
           depthLength = { 0 : len( attTypeList ) }
           while True:
-            if depthLength[depth] == 0:
-              if tempType.endswith( ',' ):
-                tempType = tempType[:-1]
-              tempType = tempType + '>,'
-              depth = depth - 1
             if attTypeList[0].has_key( 'typename' ):
               tempType = tempType + attTypeList[0]['attrs']['type'] + '<'
               maxLenTypNam[0] = maxLenTypNam[0] + len( attTypeList[0]['attrs']['type'] ) + 3
@@ -287,12 +282,20 @@ class genSrcUtils(importUtils.importUtils):
               maxLenTypNam[0] = maxLenTypNam[0] + len( attTypeList[0]['attrs']['type'] ) + 1
               depthLength[depth] = depthLength[depth] - 1
               attTypeList = attTypeList[1:]
+            if depthLength[depth] == 0:
+              if tempType.endswith( ',' ):
+                tempType = tempType[:-1]
+              tempType = tempType + '>,'
+              depth = depth - 1
             if not attTypeList:
+              if tempType.endswith( ',' ):
+                tempType = tempType[:-1]
+              while depth >= 0:
+                tempType = tempType + '>'
+                depth = depth - 1                
               break
-          if tempType.endswith( ',' ):
-            tempType = tempType[:-1]
           s += '  %s %s%s //%s%s%s %s\n' % (tempType.ljust(maxLenTypNam[0]), \
-                                        name.ljust(maxLenTypNam[1]), \
+                                        tempName.ljust(maxLenTypNam[1]), \
                                         namespaceInit.ljust(maxLenTypNam[2]), \
                                         transient, \
                                         length, \
