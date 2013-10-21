@@ -88,7 +88,7 @@ class genLinkDef:
 
   def getClassTree( self, xld, classList ):
     classTree = {}
-    for classname in allList:
+    for classname in classList:
       result = { 'OK' : False, 'Value' : xld }
       while True:
         result = self.findClass( classname, result['Value'] )
@@ -134,7 +134,7 @@ class genLinkDef:
       s = s + '#ifdef __CINT__\n\n\n'
       classList = self.getExternClasses( godClass )
       tempTuple = self.genExternTemplates( godClass )
-      allList = tempTuple + classList
+      allList = tempTuple[0] + classList
       if allList:
         xldList = self.parseXld()
         classTree = self.getClassTree( xldList, allList )
