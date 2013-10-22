@@ -137,11 +137,11 @@
         access           (PUBLIC | PROTECTED | PRIVATE)   "PRIVATE"
         compression      (TRUE | FALSE)                   "TRUE"
         setMeth          (TRUE | FALSE)                   "TRUE"
-        getMeth          (TRUE | FALSE)                   "TRUE"
-        transient        (TRUE | FALSE)                   "FALSE"    
+        getMeth          (TRUE | FALSE)                   "TRUE"  
         nonconstaccessor (TRUE | FALSE)                   "FALSE"
         storage          (TRUE | FALSE)                   "TRUE"
         virtualaccessor  (TRUE | FALSE | PURE)            "FALSE"
+        transient        (TRUE | FALSE)                   "FALSE"
         pointer          (TRUE | FALSE)                   "FALSE"
         extern           (TRUE | FALSE)                   "FALSE"
 >
@@ -172,15 +172,30 @@
         getMeth          (TRUE | FALSE)                    "TRUE"
         checkMeth        (TRUE | FALSE)                    "FALSE"
 >
-<!ELEMENT template EMPTY>
+<!ELEMENT template (typename*)>
 <!ATTLIST template
-        name             CDATA                             #REQUIRED
-        t1               CDATA                             "THIS"
-        t2               CDATA                             #IMPLIED
-        t3               CDATA                             #IMPLIED
-        t4               CDATA                             #IMPLIED
+        type             CDATA                            #REQUIRED
+        name             CDATA                            #REQUIRED
+        desc             CDATA                            #REQUIRED
+        init             CDATA                            #IMPLIED
+        dictalias        CDATA                            #IMPLIED
+        length           CDATA                            #IMPLIED
+        access           (PUBLIC | PROTECTED | PRIVATE)   "PRIVATE"
+        compression      (TRUE | FALSE)                   "TRUE"
+        setMeth          (TRUE | FALSE)                   "TRUE"
+        getMeth          (TRUE | FALSE)                   "TRUE"  
+        nonconstaccessor (TRUE | FALSE)                   "FALSE"
+        storage          (TRUE | FALSE)                   "TRUE"
+        virtualaccessor  (TRUE | FALSE | PURE)            "FALSE"
+        transient        (TRUE | FALSE)                   "FALSE"
+        pointer          (TRUE | FALSE)                   "FALSE"
+        extern           (TRUE | FALSE)                   "FALSE"
 >
-
+<!ELEMENT typename (typename*)>
+<!ATTLIST typename
+        type             CDATA                             #REQUIRED
+        extern           (TRUE | FALSE)                    "FALSE"
+>
 <!ELEMENT assoc EMPTY>
 <!ATTLIST assoc
         type             (1D | 2D)                         "1D"
@@ -189,36 +204,3 @@
         to               CDATA                             #REQUIRED
 >
 
-<!ENTITY KeyedObjectKey 'int'>
-<!ENTITY Reference '<template name="SmartRef"/>
-        <template name="SmartRefVector"/>'
->
-<!ENTITY StlVector '<template name="vector" t1="THIS"/>'
->
-<!ENTITY StlConstVector '<template name="vector" t1="const THIS"/>'
->
-<!ENTITY StlPtrVector '<template name="vector" t1="THIS*"/>'
->
-<!ENTITY StlConstPtrVector '<template name="vector" t1="const THIS*"/>'
->
-<!ENTITY DataObject '<template name="SmartRef"/>
-        <template name="SmartRefVector"/>'
->
-<!ENTITY ContainedObject '<template name="SmartRef"/>
-        <template name="SmartRefVector"/>
-        <template name="vector" t1="THIS*"/>
-        <template name="ObjectVector"/>'
->
-<!ENTITY KeyedContainer '<template name="SmartRef"/>
-        <template name="SmartRefVector"/>
-        <template name="vector" t1="THIS*"/>
-        <template name="ObjectVector"/>
-        <template name="KeyedContainer"/>'
->
-<!ENTITY KeyedObject '<template name="KeyedObject" t1="int"/>
-        <template name="SmartRef"/>
-        <template name="SmartRefVector"/>
-        <template name="vector" t1="THIS*"/>
-        <template name="ObjectVector"/>
-        <template name="KeyedContainer"/>'
->

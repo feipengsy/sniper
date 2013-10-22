@@ -133,8 +133,12 @@ class genLinkDef:
       s = ''
       s = s + '#ifdef __CINT__\n\n\n'
       classList = self.getExternClasses( godClass )
-      tempTuple = self.genExternTemplates( godClass )
-      allList = tempTuple[0] + classList
+      if godClass.has_key( 'template' ):
+        tempTuple = self.genExternTemplates( godClass )
+        allList = tempTuple[0] + classList
+      else:
+        tempTuple = ([])
+        allList = classList
       if allList:
         xldList = self.parseXld()
         classTree = self.getClassTree( xldList, allList )
