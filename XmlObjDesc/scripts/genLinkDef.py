@@ -137,7 +137,7 @@ class genLinkDef:
         tempTuple = self.genExternTemplates( godClass )
         allList = tempTuple[0] + classList
       else:
-        tempTuple = ([])
+        tempTuple = ([],[])
         allList = classList
       if allList:
         xldList = self.parseXld()
