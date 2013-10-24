@@ -2,7 +2,7 @@
 pythonexe     = $(Python_home)/bin/python
 parsetool     = $(XMLOBJDESCROOT)/scripts/godII.py
 dest          = ../Event/
-dtdfile       = ../$(xmlsrc)/gdd.dtd 
+dtdfile       = ../$(xmlsrc)/xdd.dtd 
 
 ${CONSTITUENT}_output = $(dest)
 
@@ -12,9 +12,9 @@ ${CONSTITUENT} :: $(dtdfile)
 
 
 
-$(dtdfile) : $(XMLOBJDESCROOT)/xml_files/gdd.dtd
+$(dtdfile) : $(XMLOBJDESCROOT)/xml_files/xdd.dtd
 	@echo "Copying global DTD to current package"
-	@cp $(XMLOBJDESCROOT)/xml_files/gdd.dtd $(dtdfile)
+	@cp $(XMLOBJDESCROOT)/xml_files/xdd.dtd $(dtdfile)
 
 ${CONSTITUENT}_headerlist = 
 ${CONSTITUENT}_obj2dothlist = 
