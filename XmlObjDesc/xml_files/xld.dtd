@@ -1,7 +1,7 @@
 <?xml encoding="UTF-8"?>
 <!-- ?xml encoding="ISO-8859-1"? -->
-<!ELEMENT gdd (attr*)>
-<!ATTLIST gdd
+<!ELEMENT xdd (attr*)>
+<!ATTLIST xdd
         version          CDATA                             "1.0"
 >
 

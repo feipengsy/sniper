@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE gdd SYSTEM "xld.dtd">
-<gdd>
+<!DOCTYPE xdd SYSTEM "xld.dtd">
+<xdd>
 <!--CLEHP Vector start -->
 <attr name="HepAxisAngle" ns="CLHEP">
   <attr name="Hep3Vector" ns="CLHEP"/>
@@ -43,5 +43,5 @@
   <attr name="HepGenMatrix" ns="CLHEP"/>
 </attr>
 <!--CLHEP Matrix end -->
-</gdd>
+</xdd>
 

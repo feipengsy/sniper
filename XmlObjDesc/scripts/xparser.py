@@ -82,7 +82,7 @@ class xparser:
     godSrcParser = GODSrcParser(sourcefile)
     parser.set_application(godSrcParser)
     parser.parse_resource(sourcefile)
-    return godSrcParser.data['gdd'][0]
+    return godSrcParser.data['xdd'][0]
 #--------------------------------------------------------------------------------
   def parseDB(self,dbfile):
     parser = xmlval.XMLValidator()
