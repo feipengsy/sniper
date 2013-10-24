@@ -260,7 +260,6 @@ class genSrcUtils(importUtils.importUtils):
             length = '[' + str( attAtt['length'] ) + ']'
           tempType = att['attrs']['type'] + '<'
           tempName = att['attrs']['name']
-          namespaceInit = ''
           maxLenTypNam[0] = max( maxLenTypNam[0], len(att['attrs']['type'] ) + 2 )
           maxLenTypNam[1] = max( maxLenTypNam[1], len(att['attrs']['name'] ) )
           if namespace and att['attrs'].has_key('init'):
@@ -294,6 +293,11 @@ class genSrcUtils(importUtils.importUtils):
                 tempType = tempType + '>'
                 depth = depth - 1                
               break
+          namespaceInit = ''
+          if namespace :
+            if att['attrs'].has_key('init') : namespaceInit = ' = %s;'%att['attrs']['init']
+          else :
+            tempName = 'm_%s;' % tempName
           s += '  %s %s%s //%s%s%s %s\n' % (tempType.ljust(maxLenTypNam[0]), \
                                         tempName.ljust(maxLenTypNam[1]), \
                                         namespaceInit.ljust(maxLenTypNam[2]), \
