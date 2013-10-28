@@ -4,7 +4,7 @@ import sys,os
 def genSrc( fullName ):
   fileName = fullName.split('/')[-1]
   srcFile = open( fullName + '.cc', 'w' )
-  src = '#include "%s"\n' % (fileName + '.h')
+  src = '#include "Event/%s"\n' % (fileName + '.h')
   src += 'ClassImp(JM::%s);' % fileName
   srcFile.write( src )
   srcFile.close()
