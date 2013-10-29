@@ -6,3 +6,5 @@ use SniperKernel    v*
 use RootWriter      v*
 
 use DummyAlg        v*   Examples
+use DummyXODAlg     v*   Examples
+use RawEvent        v*   DataModel

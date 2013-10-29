@@ -1,0 +1,14 @@
+//the main cycler
+Sniper.Cycler = "NormCycler";
+Sniper.InputSvc = "NONE";
+
+Sniper.Dlls += { "DummyXODAlg" };
+Sniper.Dlls += { "RawEvent" };
+AlgMgr.Contents += { "DummyXODAlg" };
+
+#include "$ROOTWRITERROOT/share/RootWriter.txt"
+
+RootWriter.Output = { "FILE1" : "output1.root" };
+
+Sniper.EvtMax   = 10;
+Sniper.LogLevel = 3;  //Info

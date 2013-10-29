@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE gdd SYSTEM "gdd.dtd">
+
+<gdd>
+  <package name="RawEvent">
+
+
+    <import name="TObject"/>
+
+    <class name="RawEvent"
+	   author="liteng"
+	   desc="Test event">
+
+      <base name="TObject"/>
+      <attribute
+         desc="event sequential id"
+         name="Id" init="0"
+         type="Int_t"
+	 />
+      <attribute
+         desc="total momentum"
+         name="TotalMom"
+         init="2.8"
+         type="double"
+	 />
+
+    </class>
+  </package>
+</gdd>

@@ -1,0 +1,8 @@
+package DummyXODAlg
+
+use SniperKernel   v*
+use RootWriter     v*
+use RawEvent v* DataModel
+
+library DummyXODAlg *.cc
+apply_pattern linker_library library=DummyXODAlg

@@ -1,0 +1,19 @@
+package RawEvent
+version v0
+
+branches cmt src xml Event
+
+use XmlObjDesc v* -no_auto_imports
+use SniperKernel v*
+use RootInterface
+
+macro_append GODflags " -n JM "
+
+apply_pattern xod_headers files=../xml/*.xml
+apply_pattern install_more_includes more=Event
+apply_pattern cint_dictionary files=../Event/*.h
+apply_pattern xod_srcs files=../Event/*.h
+
+include_dirs $(RAWEVENTROOT)/Event
+library       RawEvent        *.cc
+apply_pattern linker_library library=RawEvent
