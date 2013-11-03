@@ -24,9 +24,7 @@ pattern cint_dictionary \
 pattern xod_dlls \
    document xoddll <package>xoddll <files>
 
-use PythonInterface  v* 
 use SniperPolicy v*
-use BoostInterface v*
 use RootInterface V*
 
 # Always switch off XmlObjDesc custom allocators with debug or WIN32
