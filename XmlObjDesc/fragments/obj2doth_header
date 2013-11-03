@@ -1,5 +1,5 @@
 
-pythonexe     = $(Python_home)/bin/python
+pythonexe     = python
 parsetool     = $(XMLOBJDESCROOT)/scripts/godII.py
 dest          = ../Event/
 dtdfile       = ../$(xmlsrc)/xdd.dtd 

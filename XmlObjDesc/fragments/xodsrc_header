@@ -1,4 +1,4 @@
-pythonexe     = $(Python_home)/bin/python
+pythonexe     = python
 parsetool     = $(XMLOBJDESCROOT)/scripts/genSrc.py
 dest          = ../src/
 
