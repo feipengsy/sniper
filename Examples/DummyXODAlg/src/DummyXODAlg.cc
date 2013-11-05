@@ -9,6 +9,8 @@ DummyXODAlg::DummyXODAlg(const std::string& name)
     : AlgBase(name)
 {
     m_iEvt = 0;
+    revent = new JM::RawEvent;
+    ran = new TRandom;
 }
 
 DummyXODAlg::~DummyXODAlg()
